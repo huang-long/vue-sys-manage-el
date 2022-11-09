@@ -41,3 +41,8 @@ export default {
   },
 };
 </script>
+<style lang="less" scoped>
+.content-box {
+  height: calc(100vh - 70px);
+}
+</style>

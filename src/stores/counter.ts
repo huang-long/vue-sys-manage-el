@@ -13,7 +13,7 @@ interface Tag {
 export declare interface Store {
   tagsList: Tag[],
   meunIsCollapsed: boolean,
-  loginUser: string,
+  loginUser: string | null,
   menuList: Menu[],
 }
 
@@ -28,6 +28,9 @@ export const userStore = defineStore({
       tagsList = JSON.parse(tagStr);
     }
 
+    //刷新后，重新加载缓存中的页签
+    const loginUser = sessionStorage.getItem("store_loginUser");
+
     //刷新后，重新加载缓存中的动态路由
     let menuList: Menu[] = [];
     let menuStr = sessionStorage.getItem("store_menuList");
@@ -39,7 +42,7 @@ export const userStore = defineStore({
     return {
       tagsList: tagsList,
       meunIsCollapsed: false,
-      loginUser: '',
+      loginUser: loginUser,
       menuList: menuList,
     }
   },
@@ -60,6 +63,7 @@ export const userStore = defineStore({
     },
     setLoginUser(value: string) {
       this.loginUser = value;
+      sessionStorage.setItem("store_loginUser", value);
     },
     setMeunIsCollapsed(value: boolean) {
       this.meunIsCollapsed = value;

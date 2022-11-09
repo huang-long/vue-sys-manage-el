@@ -64,6 +64,7 @@ export default {
   top: 70px;
   bottom: 0;
   overflow-y: scroll;
+  height: calc(100vh - 70px);
 }
 .sidebar::-webkit-scrollbar {
   width: 0;
@@ -71,7 +72,5 @@ export default {
 .sidebar-el-menu:not(.el-menu--collapse) {
   width: 250px;
 }
-.sidebar > ul {
-  height: 100%;
-}
+
 </style>
