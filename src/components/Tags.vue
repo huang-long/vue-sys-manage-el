@@ -4,13 +4,15 @@
       <li class="tags-li" v-for="(item, index) in tagsList" :class="{ 'active': isActive(item.path) }" :key="index">
         <router-link :to="item.path" class="tags-li-title">{{ item.title }}</router-link>
         <span class="tags-li-icon" @click="closeTags(index)">
-          <i class="el-icon-close"></i>
+          <el-icon>
+            <Close />
+          </el-icon>
         </span>
       </li>
     </ul>
     <div class="tags-close-box">
       <el-dropdown @command="handleTags">
-        <el-button  size="small" type="primary">
+        <el-button size="small" type="primary">
           标签选项
           <el-icon>
             <ArrowDown />
@@ -46,7 +48,7 @@ export default {
     // 关闭单个标签
     const closeTags = (index: number) => {
       const delItem = tagsList.value[index];
-      store.delTagsItem(index)
+      store.delTagsItem(index);
       const item = tagsList.value[index]
         ? tagsList.value[index]
         : tagsList.value[index - 1];
@@ -64,14 +66,14 @@ export default {
       });
       if (!isExist) {
         if (tagsList.value.length >= 8) {
-          store.delTagsItem(0)
+          store.delTagsItem(0);
         }
 
-        store.setTagsItem([{
+        store.addTagsItem({
           name: route.name,
           title: route.meta.title,
           path: route.fullPath,
-        }])
+        });
       }
     };
     setTags(route);
@@ -82,14 +84,14 @@ export default {
     // 关闭全部标签
     const closeAll = () => {
       store.clearAllTags();
-      router.push("/");
+      router.push("/home");
     };
     // 关闭其他标签
     const closeOther = () => {
       const curItem = tagsList.value.filter((item) => {
         return item.path === route.fullPath;
       });
-      store.closeTagsOther(curItem)
+      store.closeTagsOther(curItem);
     };
     const handleTags = (command: string) => {
       command === "other" ? closeOther() : closeAll();
@@ -126,6 +128,7 @@ export default {
     box-sizing: border-box;
     width: 100%;
     height: 100%;
+    padding: 0;
 
     .tags-li {
       float: left;
@@ -144,6 +147,8 @@ export default {
       -webkit-transition: all 0.3s ease-in;
       -moz-transition: all 0.3s ease-in;
       transition: all 0.3s ease-in;
+      display: flex;
+      justify-content: center;
 
       .tags-li-title {
         float: left;
@@ -154,6 +159,11 @@ export default {
         margin-right: 5px;
         color: #666;
       }
+
+      .tags-li-icon {
+        display: flex;
+        align-items: center;
+      }
     }
 
     .tags-li:not(.active):hover {
@@ -162,6 +172,8 @@ export default {
 
     .tags-li.active {
       color: #fff;
+      border: 1px solid #409eff;
+      background-color: #409eff;
 
       .tags-li-title {
         color: #fff;

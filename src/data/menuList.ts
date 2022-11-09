@@ -11,7 +11,7 @@ export declare interface Menu {
 export const menuList1 = [
     {
         id: "M0001",
-        icon: "md-home",
+        icon: "SuitcaseLine",
         path: "/home",
         name: "DemoHome",
         componentPath: "home.vue",
@@ -19,7 +19,7 @@ export const menuList1 = [
     },
     {
         id: "M0201",
-        icon: "md-grid",
+        icon: "SuitcaseLine",
         title: "表格相关",
         children: [
             {
@@ -40,7 +40,7 @@ export const menuList1 = [
     },
     {
         id: "M0003",
-        icon: "md-bookmark",
+        icon: "SuitcaseLine",
         path: "/tabs",
         name: "DemoTabs",
         componentPath: "tabs.vue",
@@ -48,7 +48,7 @@ export const menuList1 = [
     },
     {
         id: "M0004",
-        icon: "ios-list-box",
+        icon: "SuitcaseLine",
         title: "表单相关",
         children: [
             {
@@ -96,7 +96,7 @@ export const menuList1 = [
     },
     {
         id: "M0091",
-        icon: "md-information-circle",
+        icon: "SuitcaseLine",
         path: "/message",
         name: "DemoMessage",
         componentPath: "message.vue",
@@ -104,7 +104,7 @@ export const menuList1 = [
     },
     {
         id: "M0009",
-        icon: "md-color-palette",
+        icon: "SuitcaseLine",
         path: "/icon",
         name: "DemoIcon",
         componentPath: "icon.vue",
@@ -112,7 +112,7 @@ export const menuList1 = [
     },
     {
         id: "M0010",
-        icon: "ios-speedometer",
+        icon: "SuitcaseLine",
         path: "/charts",
         name: "DemoEharts",
         componentPath: "charts.vue",
@@ -120,7 +120,7 @@ export const menuList1 = [
     },
     {
         id: "M0020",
-        icon: "md-git-compare",
+        icon: "SuitcaseLine",
         path: "/bpmn",
         name: "DemoBpmn",
         componentPath: "bpmn.vue",
@@ -128,7 +128,7 @@ export const menuList1 = [
     },
     {
         id: "M0011",
-        icon: "md-planet",
+        icon: "SuitcaseLine",
         path: "/i18n",
         name: "DemoI18n",
         componentPath: "i18n.vue",
@@ -136,7 +136,7 @@ export const menuList1 = [
     },
     {
         id: "M0016",
-        icon: "md-cog",
+        icon: "SuitcaseLine",
         path: "/env",
         name: "DemoEnv",
         componentPath: "env.vue",
@@ -144,7 +144,7 @@ export const menuList1 = [
     },
     {
         id: "M0012",
-        icon: "md-warning",
+        icon: "SuitcaseLine",
         title: "权限处理",
         children: [
             {
@@ -165,7 +165,7 @@ export const menuList1 = [
     },
     {
         id: "M0015",
-        icon: "md-thumbs-up",
+        icon: "SuitcaseLine",
         path: "/donate",
         name: "DemoDonate",
         componentPath: "donate.vue",
@@ -176,7 +176,7 @@ export const menuList1 = [
 export const menuList2 = [
     {
         id: "M0001",
-        icon: "md-home",
+        icon: "SuitcaseLine",
         path: "/home",
         name: "DemoHome",
         componentPath: "home.vue",
@@ -184,7 +184,7 @@ export const menuList2 = [
     },
     {
         id: "M0012",
-        icon: "md-warning",
+        icon: "SuitcaseLine",
         title: "权限处理",
         children: [
             {
@@ -205,7 +205,7 @@ export const menuList2 = [
     },
     {
         id: "M0015",
-        icon: "md-thumbs-up",
+        icon: "SuitcaseLine",
         path: "/donate",
         name: "DemoDonate",
         componentPath: "donate.vue",

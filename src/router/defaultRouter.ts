@@ -1,5 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/Home.vue';
+import HomeView from '../views/Main.vue'
 
 //系统默认的路由
 const routes: RouteRecordRaw[] = [

@@ -109,8 +109,12 @@ export default {
   }
 
   .collapse-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
     float: left;
-    padding: 22px 21px 0 21px;
+    padding: 0 21px;
     cursor: pointer;
   }
 
