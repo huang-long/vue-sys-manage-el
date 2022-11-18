@@ -1,4 +1,4 @@
-@import "./base.css";
+/* @import "./base.css"; */
 
 html,
 body,
@@ -13,6 +13,7 @@ body>#app {
 
 ul {
   padding: 0;
+  margin: 0;
 }
 
 a {
