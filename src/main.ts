@@ -7,8 +7,7 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import 'element-plus/dist/index.css'
 import VXETable from 'vxe-table'
 import 'vxe-table/lib/style.css'
-// @ts--ignore
-import print from 'vue3-print-nb';
+import print from 'vue3-print-nb'
 
 const app = createApp(App)
 app.use(createPinia())
