@@ -51,12 +51,12 @@ export const userStore = defineStore({
     //https://pinia.vuejs.org/core-concepts/getters.html#accessing-other-getters
   },
   actions: {
-    setMenuList(value: Menu[]) {
+    setMenuList(value: Array<Menu>) {
       this.menuList = value;
       sessionStorage.setItem("store_menuList", JSON.stringify(this.menuList));
     },
     loadMenu() {
-      let list = this.loginUser == "admin" ? menuList1 : menuList2;
+      let list = menuList1;
       this.clearAllTags();
       this.setMenuList(list);
       loadMenuRouter(router, list);

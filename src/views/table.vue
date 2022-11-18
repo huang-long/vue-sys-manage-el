@@ -7,7 +7,7 @@
 }
 </style>
 <template>
-  <div>
+  <div class="container">
     <el-row :gutter="24">
       <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
         相关文档：

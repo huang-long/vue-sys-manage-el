@@ -1,15 +1,12 @@
 <style lang="less" scoped>
 </style>
 <template>
-  <div>
-    首页
+  <div class="container">
+    <el-calendar v-model="value" />
   </div>
 </template>
 
-<script lang="ts">
-import { onMounted, ref } from "vue";
-export default {
-  name: "DemoHome",
-  setup() {},
-};
+<script lang="ts" setup>
+import { ref } from 'vue'
+const value = ref(new Date())
 </script>

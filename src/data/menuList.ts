@@ -8,7 +8,7 @@ export declare interface Menu {
     children?: Array<Menu>,
 }
 
-export const menuList1 = [
+export const menuList1: Array<Menu> = [
     {
         id: "M0001",
         icon: "SuitcaseLine",
