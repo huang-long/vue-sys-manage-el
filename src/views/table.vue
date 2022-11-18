@@ -11,9 +11,11 @@
     <el-row :gutter="24">
       <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
         相关文档：
-        <a href="https://iviewui.com/view-ui-plus/component/form/table">view ui table配置</a>
+        <a href="https://element-plus.gitee.io/zh-CN/component/table.html" target="_blank">element-plus table配置</a>
       </el-col>
     </el-row>
+
+    <el-divider content-position="left">table</el-divider>
 
     <el-table :data="tableData" style="width: 100%">
       <el-table-column prop="date" label="Date" width="180" />
@@ -24,17 +26,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { reactive, ref } from "vue";
+<script lang="ts" setup name="DemoTable">
+import { reactive } from "vue";
 import { tableDataList } from "../data/tableList";
-
-export default {
-  name: "DemoTable",
-  setup() {
-    const tableData = reactive(tableDataList);
-    return {
-      tableData,
-    };
-  },
-};
+const tableData = reactive(tableDataList);
 </script>
