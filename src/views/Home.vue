@@ -9,4 +9,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 const value = ref(new Date())
+// defineExpose无需导入，直接使用
+// defineExpose({ value });
 </script>
