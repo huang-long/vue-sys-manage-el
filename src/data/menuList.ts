@@ -55,8 +55,8 @@ export const menuList1: Array<Menu> = [
     },
     {
         id: "M0004",
-        icon: "SuitcaseLine",
-        title: "Tickets",
+        icon: "Tickets",
+        title: "表单相关",
         children: [
             {
                 id: "M0005",
