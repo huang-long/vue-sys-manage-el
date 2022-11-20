@@ -22,6 +22,7 @@
     "echarts": "^5.4.0",
     "element-plus": "^2.2.20",
     "pinia": "^2.0.16",
+    "screenfull": "^6.0.2",
     "vue": "^3.2.37",
     "vue-i18n": "^9.2.2",
     "vue-router": "^4.1.2",

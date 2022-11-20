@@ -12,6 +12,11 @@
     <div class="logo">后台管理系统</div>
     <div class="header-right">
       <div class="header-user-con">
+
+        <el-icon ref="myFullscreen" @click="toggleFullscreen">
+          <component :is="isScreenfull ? 'Close' : 'FullScreen'" />
+        </el-icon>
+
         <!-- 消息中心 -->
         <div class="btn-bell">
           <el-tooltip effect="dark" :content="message ? `有${message}条未读消息` : `消息中心`" placement="bottom">
@@ -50,19 +55,22 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { userStore } from "../stores/counter";
 import { useRouter } from "vue-router";
+import screenfull from "screenfull";
+
 export default {
   setup() {
     const message = 2;
-
     const store = userStore();
     const collapse = computed(() => store.meunIsCollapsed);
     const username = computed(() => store.loginUser);
+    let isScreenfull = ref(false);
+
     // 侧边栏折叠
     const collapseChage = () => {
-      store.setMeunIsCollapsed(!collapse.value)
+      store.setMeunIsCollapsed(!collapse.value);
     };
 
     onMounted(() => {
@@ -82,12 +90,24 @@ export default {
       }
     };
 
+    const toggleFullscreen = () => {
+      //判断是否支持全屏
+      if (screenfull.isEnabled) {
+        screenfull.toggle();
+      }
+    };
+    screenfull.onchange(() => {
+      isScreenfull.value = !isScreenfull.value;
+    });
+
     return {
+      isScreenfull,
       username,
       message,
       collapse,
       collapseChage,
       handleCommand,
+      toggleFullscreen,
     };
   },
 };
@@ -126,17 +146,21 @@ export default {
       display: flex;
       height: 70px;
       align-items: center;
+      font-size: 24px;
 
       .btn-bell {
+        margin-left: 5px;
         position: relative;
-        width: 30px;
-        height: 30px;
         text-align: center;
-        border-radius: 15px;
+        width: 24px;
+        height: 24px;
         cursor: pointer;
 
         .el-icon {
           color: #fff;
+          position: absolute;
+          top: 0;
+          left: 0;
         }
 
         .btn-bell-badge {
