@@ -50,7 +50,7 @@ import en from "element-plus/dist/locale/en.mjs";
 
 const { t } = useI18n();
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
-const locale = computed(() => (proxy.$i18n.locale === "zh-CN" ? zhCn : en));
+const locale = computed(() => (proxy?.$i18n.locale === "zh-CN" ? zhCn : en));
 const changeLang = () => {
   if (proxy) {
     if (proxy.$i18n.locale == "zh-CN") {

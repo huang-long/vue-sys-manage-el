@@ -12,7 +12,7 @@
     <el-divider content-position="left">icon</el-divider>
 
     <div>
-      <el-icon :size="size" :color="color">
+      <el-icon>
         <Edit />
       </el-icon>
       <Edit style="width:16px;height:16px;" />

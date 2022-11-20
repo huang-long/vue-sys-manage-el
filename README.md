@@ -3,7 +3,7 @@
 #### Description
 vue3 + typescript + element plus后台管理系统
 
-演示地址：[http://106.12.116.166:8081](http://106.12.116.166:8081)
+演示地址：[http://106.12.116.166:8082](http://106.12.116.166:8082)
 
 githup地址：[https://github.com/huang-long/vue-sys-manage-el](https://github.com/huang-long/vue-sys-manage-el)
 
