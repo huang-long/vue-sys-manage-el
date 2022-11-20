@@ -15,7 +15,7 @@
     <el-divider>其他版本</el-divider>
     <el-row>
       vue3 + typescript + view ui后台管理系统 
-      https://github.com/huang-long/vue-sys-manage
+      https://gitee.com/huanglgln/vue-sys-manage
     </el-row>
   </div>
 </template>
