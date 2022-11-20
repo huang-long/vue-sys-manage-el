@@ -56,7 +56,7 @@ export const userStore = defineStore({
       sessionStorage.setItem("store_menuList", JSON.stringify(this.menuList));
     },
     loadMenu() {
-      let list = menuList1;
+      let list = this.loginUser == "admin" ? menuList1 : menuList2;
       this.clearAllTags();
       this.setMenuList(list);
       loadMenuRouter(router, list);
