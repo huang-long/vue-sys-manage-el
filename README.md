@@ -3,7 +3,7 @@
 #### Description
 vue3 + typescript + element plus后台管理系统
 
-演示地址：[http://106.12.116.166:8082](http://106.12.116.166:8082)
+演示地址：[http://101.43.32.67:8081](http://101.43.32.67:8081)
 
 githup地址：[https://github.com/huang-long/vue-sys-manage-el](https://github.com/huang-long/vue-sys-manage-el)
 
@@ -16,6 +16,7 @@ vue3 + typescript + ant design vue版本：[https://github.com/huang-long/vue-sy
 
 ```sh
 npm install
+or (pnpm install)
 ```
 
 ### Compile and Hot-Reload for Development

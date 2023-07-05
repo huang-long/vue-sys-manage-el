@@ -29,7 +29,7 @@
       <el-button type="primary" @click="logToObject">查看属性</el-button>
     </el-row>
 
-    <VueFlow fit-view-on-init class="my-flow">
+    <VueFlow fit-view-on-init class="my-flow" v-model="elements">
       <Background />
       <Panel :position="PanelPosition.TopRight">
         <div>
@@ -56,21 +56,19 @@ import { VueFlow, useVueFlow } from '@vue-flow/core'
 import { ref, watch } from 'vue'
 import { ElMessage } from 'element-plus';
 
+const data = [
+  { id: '1', type: 'input', label: 'Node 1', position: { x: 250, y: 5 } },
+  { id: '2', label: 'Node 2', position: { x: 100, y: 100 } },
+  { id: '3', label: 'Node 3', position: { x: 400, y: 100 } },
+  { id: '4', label: 'Node 4', position: { x: 400, y: 200 } },
+  { id: 'e1-2', source: '1', target: '2', animated: true },
+  { id: 'e1-3', source: '1', target: '3' },
+]
+let elements = ref(data)
+
 const isHidden = ref(false)
 
-let { onPaneReady, onNodeDragStop, onConnect, addEdges, setTransform, toObject, nodes, edges } = useVueFlow({
-  nodes: [
-    { id: '1', type: 'input', label: 'Node 1', position: { x: 250, y: 5 } },
-    { id: '2', label: 'Node 2', position: { x: 100, y: 100 } },
-    { id: '3', label: 'Node 3', position: { x: 400, y: 100 } },
-    { id: '4', label: 'Node 4', position: { x: 400, y: 200 } },
-  ],
-  edges: [
-    { id: 'e1-2', source: '1', target: '2' },
-    { id: 'e1-3', source: '1', target: '3' },
-    { id: 'e3-4', source: '3', target: '4' },
-  ],
-})
+let { onPaneReady, onNodeDragStop, onConnect, addEdges, setTransform, toObject, nodes, edges } = useVueFlow()
 
 watch(isHidden, () => {
   nodes.value.forEach((n) => (n.hidden = isHidden.value))
@@ -95,20 +93,8 @@ const updatePos = () => {
 const logToObject = () => {
   ElMessage.info(JSON.stringify(toObject()));
 };
-const resetTransform = () => {  
-  // TODO
-  // nodes.value = [
-  //   { id: '1', type: 'input', label: 'Node 1', position: { x: 250, y: 5 } },
-  //   { id: '2', label: 'Node 2', position: { x: 100, y: 100 } },
-  //   { id: '3', label: 'Node 3', position: { x: 400, y: 100 } },
-  //   { id: '4', label: 'Node 4', position: { x: 400, y: 200 } },
-  // ]
-  
-  // edges.value = [
-  //   { id: 'e1-2', source: '1', target: '2' },
-  //   { id: 'e1-3', source: '1', target: '3' },
-  //   { id: 'e3-4', source: '3', target: '4' },
-  // ]
+const resetTransform = () => {
+  elements.value = data
   setTransform({ x: 0, y: 0, zoom: 1 })
 };
 const toggleclass = () => nodes.value.forEach((el) => (el.class = el.class === 'node-light' ? 'node-dark' : 'node-light'))

@@ -14,8 +14,9 @@
     </el-row>
     <el-divider>其他版本</el-divider>
     <el-row>
-      vue3 + typescript + view ui后台管理系统 
-      https://gitee.com/huanglgln/vue-sys-manage
+      <a href="https://gitee.com/huanglgln/vue-sys-manage" target="_blank">vue3 + typescript + view ui后台管理系统</a>&nbsp;
+      <a href="https://gitee.com/huanglgln/vue-sys-manage-adv" target="_blank">vue3 + typescript + Ant Design Vue后台管理系统
+      </a>
     </el-row>
   </div>
 </template>
