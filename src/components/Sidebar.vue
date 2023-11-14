@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar">
-    <el-menu class="sidebar-el-menu" :default-active="onRoutes" :collapse="collapse" background-color="#324157" text-color="#bfcbd9" active-text-color="#20a0ff" unique-opened
-      router>
+    <el-menu class="sidebar-el-menu" :default-active="onRoutes" :collapse="collapse" background-color="#324157"
+      text-color="#bfcbd9" active-text-color="#20a0ff" unique-opened router>
       <template v-for="item in menu">
         <template v-if="item.children">
           <el-sub-menu :index="item.id" :key="item.id">
@@ -17,7 +17,7 @@
                 <el-menu-item v-for="threeItem in subItem.children" :key="threeItem.id" :index="threeItem.path">
                   {{ threeItem.title }}</el-menu-item>
               </el-sub-menu>
-              <el-menu-item v-else :index="subItem.path" :key="subItem.id">{{ subItem.title }}
+              <el-menu-item v-else :index="subItem.path" :key="subItem.id + '_1'">{{ subItem.title }}
               </el-menu-item>
             </template>
           </el-sub-menu>
@@ -77,7 +77,15 @@ export default {
   .sidebar-el-menu:not(.el-menu--collapse) {
     width: 250px;
   }
+
+  .el-sub-menu {
+    :deep(.el-sub-menu__title) {
+      padding: 0 var(--el-menu-base-level-padding);
+    }
+  }
+
 }
+
 .sidebar::-webkit-scrollbar {
   width: 0;
 }

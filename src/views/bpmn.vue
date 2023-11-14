@@ -6,6 +6,7 @@
   :deep(.node-light) {
     background: none;
   }
+
   :deep(.node-dark) {
     background: #eeeeee;
   }
@@ -18,6 +19,10 @@
         相关文档：
         <a href="https://vueflow.dev/" target="_blank">Vue Flow官方文档</a>
       </el-col>
+      <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+        如果是activiti工作流可使用：
+        <a href="https://miyuesc.gitee.io/process-designer/" target="_blank">process-designer</a>
+      </el-col>      
     </el-row>
 
     <el-divider content-position="left">Vue Flow</el-divider>
@@ -50,6 +55,9 @@
 import '@vue-flow/core/dist/style.css';
 /* import the default theme (optional) */
 import '@vue-flow/core/dist/theme-default.css';
+// 零时方案，最新版本的Controls、MiniMap模块有问题, 所有还是使用的老版本1.6.0
+// https://vueflow.dev/migration/
+import './bpmn.css';
 
 import { Background, Panel, PanelPosition, Controls } from '@vue-flow/additional-components'
 import { VueFlow, useVueFlow } from '@vue-flow/core'

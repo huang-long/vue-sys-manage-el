@@ -243,6 +243,26 @@ const initAntvG6Graph = () => {
     // fitView: true,
     layout: {
       type: "forceAtlas2", // 建议（force2, forceAtlas2），值：random, radial, mds, circular, fruchterman, force, gForce, force2, forceAtlas2, dagre, concentric, grid
+      // preventOverlap: true, // 防止节点重叠
+      // nodeSize: 30,         // 节点大小，用于算法中防止节点重叠时的碰撞检测
+      // linkDistance: (d: { source: { id: string; }; }) => {
+      //   if (d.source.id.indexOf("278")>=0) {
+      //     return 500;
+      //   }
+      //   return 300;
+      // },
+      // nodeStrength: (d: { isLeaf: any; }) => {
+      //   if (d.isLeaf) {
+      //     return -50;
+      //   }
+      //   return -10;
+      // },
+      // edgeStrength: (d: { source: { id: string; }; }) => {
+      //   if (d.source.id.indexOf("278")>=0) {
+      //     return 0.7;
+      //   }
+      //   return 0.1;
+      // },
     },
     modes: {
       default: ["drag-canvas", "drag-node", "zoom-canvas"],
