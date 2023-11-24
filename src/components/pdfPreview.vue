@@ -24,6 +24,11 @@ const props = defineProps({
   }
 })
 
+// const emit = defineEmits<{ (event: 'getPdfUrl', name: string): void }>()
+// const getPdfUrl = ()=>{
+//   emit('getPdfUrl', props.pdfUrl)
+// }
+
 const state = reactive({
   source: props.pdfUrl, // 预览pdf文件地址
   pageNum: 1, // 当前页面

@@ -40,9 +40,12 @@
 <template>
   <div class="container">
     <el-row :gutter="24">
-      <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+      <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
         相关文档：
-        <a href="https://antv-g6.gitee.io/zh/docs/api/Graph" target="_blank">antv g6官方文档</a>
+        <a href="https://g6.antv.antgroup.com/api/Graph" target="_blank">antv g6官方文档</a>
+      </el-col>
+      <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
+        <el-button type="primary" @click="resetGraph">重置</el-button>
       </el-col>
     </el-row>
 
@@ -243,7 +246,9 @@ const initAntvG6Graph = () => {
     // fitView: true,
     layout: {
       type: "forceAtlas2", // 建议（force2, forceAtlas2），值：random, radial, mds, circular, fruchterman, force, gForce, force2, forceAtlas2, dagre, concentric, grid
-      // preventOverlap: true, // 防止节点重叠
+      preventOverlap: true, // 防止节点重叠
+      prune: false,
+      kr: 30,
       // nodeSize: 30,         // 节点大小，用于算法中防止节点重叠时的碰撞检测
       // linkDistance: (d: { source: { id: string; }; }) => {
       //   if (d.source.id.indexOf("278")>=0) {
@@ -341,8 +346,11 @@ const initAntvG6Graph = () => {
   graph.on("canvas:click", clearAllStats);
 
   //处理数据并渲染
-  graph.clear();
-  graph.data({
+  resetGraph();
+};
+
+const resetGraph = () => {
+  let graphData = {
     nodes: data.nodes.map(function (node) {
       if (node.name && typeof node.name == "string") {
         node.label = node.name.length > 3 ? node.name.substring(0, 2) + "..." : node.name;
@@ -358,9 +366,12 @@ const initAntvG6Graph = () => {
       }
       return Object.assign({}, edge);
     }),
-  });
+  };
+  //处理数据并渲染
+  graph.clear();
+  graph.data(graphData);
   graph.render();
-};
+}
 
 onMounted(() => {
   nextTick(() => {
