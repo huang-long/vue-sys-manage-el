@@ -1,6 +1,10 @@
 <style lang="less" scoped>
 @message-width: 80px;
 
+.page{
+  padding-bottom: 20px;
+}
+
 .mgb20 {
   margin-bottom: 20px;
 }
@@ -77,7 +81,7 @@
 }
 </style>
 <template>
-  <div>
+  <div ref="homePage" class="page">
     <!-- 待办、已办、办结、消息、预警 -->
     <el-row :gutter="20" class="mgb20">
       <el-col v-for="(item, index) in messageList" :span="4" :key="index">
@@ -251,11 +255,11 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, nextTick, onMounted, ref } from 'vue'
+import { nextTick, onMounted, ref } from 'vue'
 import * as echarts from "echarts";
 import { onBeforeUnmount } from 'vue';
 import { watch } from 'vue';
-import { userStore } from '@/stores/counter';
+import { useElementSize } from '@vueuse/core';
 
 const messageList = ref(
   [{
@@ -671,12 +675,18 @@ const resizeChart = () => {
   }, 400);
 }
 
-// 样式变化重新渲染
-const store = userStore();
-const collapse = computed(() => store.meunIsCollapsed);
-watch(collapse, () => {
+// 监听页面大小变化
+const homePage = ref();
+const { width: pageWidth } = useElementSize(homePage);
+watch(pageWidth, () => {
   resizeChart();
 });
+// 样式变化重新渲染
+// const store = userStore();
+// const collapse = computed(() => store.meunIsCollapsed);
+// watch(collapse, () => {
+//   resizeChart();
+// });
 
 // 初始化渲染
 onMounted(() => {

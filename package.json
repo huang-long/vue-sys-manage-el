@@ -17,6 +17,7 @@
     "@element-plus/icons-vue": "^2.0.10",
     "@vue-flow/additional-components": "^1.3.3",
     "@vue-flow/core": "^1.6.0",
+    "@vueuse/core": "^10.6.1",
     "@wangeditor/editor": "^5.1.23",
     "@wangeditor/editor-for-vue": "^5.1.12",
     "axios": "^1.2.3",

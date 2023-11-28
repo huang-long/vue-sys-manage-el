@@ -2,7 +2,7 @@
 
 <style lang="less" scoped></style>
 <template>
-  <div class="container">
+  <div ref="chartPage" class="container">
     <el-row :gutter="24">
       <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
         相关文档：
@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts" setup name="DemoCharts">
-import { userStore } from "@/stores/counter";
+import { useElementSize } from "@vueuse/core";
 import * as echarts from "echarts";
 import { onMounted, nextTick, ref, onBeforeUnmount, computed, watch } from 'vue';
 
@@ -101,12 +101,18 @@ const resizeChart = () => {
   }, 400);
 }
 
-// 样式变化重新渲染
-const store = userStore();
-const collapse = computed(() => store.meunIsCollapsed);
-watch(collapse, () => {
+// 监听页面大小变化
+const chartPage = ref();
+const { width: pageWidth } = useElementSize(chartPage);
+watch(pageWidth, () => {
   resizeChart();
 });
+// 样式变化重新渲染
+// const store = userStore();
+// const collapse = computed(() => store.meunIsCollapsed);
+// watch(collapse, () => {
+//   resizeChart();
+// });
 
 // 初始化渲染
 onMounted(() => {
