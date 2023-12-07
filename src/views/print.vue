@@ -3,7 +3,7 @@
     <el-row :gutter="24">
       <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
         相关文档：
-        <a href="https://github.com/Power-kxLee/vue-print-nb#vue3-version" target="_blank">vue-print-nb</a>
+        <a href="https://github.com/huang-long/vue3-print-ts" target="_blank">vue3-print-ts</a>
       </el-col>
     </el-row>
 
@@ -27,10 +27,9 @@
 
 <script lang="ts" setup name="DemoPrint" directives="print">
 import { ref } from 'vue';
-// @ts--ignore 
-// import print from 'vue3-print-nb';
+import type { PrintConf } from 'vue3-print-ts';
 
-const tableData = [
+const tableData = ref([
   {
     date: '2016-05-03',
     name: 'Tom',
@@ -51,67 +50,21 @@ const tableData = [
     name: 'Tom',
     address: 'No. 189, Grove St, Los Angeles',
   },
-]
+])
 
 let printLoading = ref(true);
-let printObj = ref({
-  id: "printMe",
-  popTitle: 'good print',
-  extraCss: "https://cdn.bootcdn.net/ajax/libs/animate.css/4.1.1/animate.compat.css, https://cdn.bootcdn.net/ajax/libs/hover.css/2.3.1/css/hover-min.css",
+let printObj= ref<PrintConf>({
+  ids: "printMe",
+  printTitle: '打印测试',
   extraHead: '<meta http-equiv="Content-Language"content="zh-cn"/>',
-  beforeOpenCallback(vue: { printLoading: boolean; }) {
-    vue.printLoading = true
-    console.log('打开之前')
+  showBackground: true,
+  beforePrint() {
+    console.log('打印之前')
   },
-  openCallback(vue: { printLoading: boolean; }) {
-    vue.printLoading = false
-    console.log('打开打印页面')
-  },
-  closeCallback(vue: any) {
-    console.log('关闭了打印工具')
+  afterPrint() {
+    console.log('打印之后')
   }
 })
-let columns = ref([
-  {
-    title: 'Name',
-    key: 'name'
-  },
-  {
-    title: 'Age',
-    key: 'age'
-  },
-  {
-    title: 'Address',
-    key: 'address'
-  }
-])
-let data = ref([
-  {
-    name: 'John Brown',
-    age: 18,
-    address: 'New York No. 1 Lake Park',
-    date: '2016-10-03'
-  },
-  {
-    name: 'Jim Green',
-    age: 24,
-    address: 'London No. 1 Lake Park',
-    date: '2016-10-01'
-  },
-  {
-    name: 'Joe Black',
-    age: 30,
-    address: 'Sydney No. 1 Lake Park',
-    date: '2016-10-02'
-  },
-  {
-    name: 'Jon Snow',
-    age: 26,
-    address: 'Ottawa No. 2 Lake Park',
-    date: '2016-10-04'
-  }
-])
-
 </script>
 <style lang="less" scoped>
 .print-area {

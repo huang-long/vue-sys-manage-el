@@ -7,7 +7,7 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import 'element-plus/dist/index.css'
 import VXETable from 'vxe-table'
 import 'vxe-table/lib/style.css'
-import print from 'vue3-print-nb'
+import Print from 'vue3-print-ts';
 import { i18n } from './i18n'
 
 const app = createApp(App)
@@ -21,5 +21,5 @@ for (const [name, comp] of Object.entries(ElementPlusIconsVue)) {
 // element plus
 app.use(i18n)
 app.use(ElementPlus)
-app.use(print);
+app.directive("print", Print);
 app.mount('#app')
