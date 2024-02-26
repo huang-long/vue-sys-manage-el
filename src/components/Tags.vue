@@ -1,8 +1,10 @@
 <template>
-  <div class="tags" v-if="showTags">
+  <div v-if="showTags" class="tags">
     <ul>
-      <li class="tags-li" v-for="(item, index) in tagsList" :class="{ 'active': isActive(item.path) }" :key="index">
-        <router-link :to="item.path" class="tags-li-title">{{ item.title }}</router-link>
+      <li v-for="(item, index) in tagsList" :key="index" class="tags-li" :class="{ active: isActive(item.path) }">
+        <router-link :to="item.path" class="tags-li-title">
+          {{ item.title }}
+        </router-link>
         <span class="tags-li-icon" @click="closeTags(index)">
           <el-icon>
             <Close />
@@ -29,91 +31,79 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup name="CompTags">
 import { computed } from "vue";
 import { userStore } from "../stores/counter";
-import { onBeforeRouteUpdate, useRoute, useRouter } from "vue-router";
-export default {
-  setup() {
-    const route = useRoute();
-    const router = useRouter();
-    const isActive = (path: string) => {
-      return path === route.fullPath;
-    };
+import { onBeforeRouteUpdate, useRoute, useRouter, type RouteLocationNormalized } from "vue-router";
 
-    const store = userStore();
-    const tagsList = computed(() => store.tagsList);
-    const showTags = computed(() => tagsList.value.length > 0);
-
-    // 关闭单个标签
-    const closeTags = (index: number) => {
-      const delItem = tagsList.value[index];
-      store.delTagsItem(index);
-      const item = tagsList.value[index]
-        ? tagsList.value[index]
-        : tagsList.value[index - 1];
-      if (item) {
-        delItem.path === route.fullPath && router.push(item.path);
-      } else {
-        router.push("/home");
-      }
-    };
-
-    // 设置标签
-    const setTags = (route: any) => {
-      const isExist = tagsList.value.some((item) => {
-        return item.path === route.fullPath;
-      });
-      if (!isExist) {
-        if (tagsList.value.length >= 8) {
-          store.delTagsItem(0);
-        }
-
-        store.addTagsItem({
-          name: route.name,
-          title: route.meta.title,
-          path: route.fullPath,
-        });
-      }
-    };
-    setTags(route);
-    onBeforeRouteUpdate((to) => {
-      setTags(to);
-    });
-
-    // 关闭全部标签
-    const closeAll = () => {
-      store.clearAllTags();
-      router.push("/home");
-    };
-    // 关闭其他标签
-    const closeOther = () => {
-      const curItem = tagsList.value.filter((item) => {
-        return item.path === route.fullPath;
-      });
-      store.closeTagsOther(curItem);
-    };
-    const handleTags = (command: string) => {
-      command === "other" ? closeOther() : closeAll();
-    };
-
-    // 关闭当前页面的标签页
-    // store.commit("closeCurrentTag", {
-    //     $router: router,
-    //     $route: route
-    // });
-
-    return {
-      isActive,
-      tagsList,
-      showTags,
-      closeTags,
-      handleTags,
-    };
-  },
+const route = useRoute();
+const router = useRouter();
+const isActive = (path: string) => {
+  return path === route.fullPath;
 };
-</script>
 
+const store = userStore();
+const tagsList = computed(() => store.tagsList);
+const showTags = computed(() => tagsList.value.length > 0);
+
+// 关闭单个标签
+const closeTags = (index: number) => {
+  const delItem = tagsList.value[index];
+  store.delTagsItem(index);
+  const item = tagsList.value[index] ? tagsList.value[index] : tagsList.value[index - 1];
+  if (item) {
+    delItem.path === route.fullPath && router.push(item.path);
+  } else {
+    router.push("/home");
+  }
+};
+
+// 设置标签
+const setTags = (route: RouteLocationNormalized) => {
+  const isExist = tagsList.value.some((item) => {
+    return item.path === route.fullPath;
+  });
+  if (!isExist) {
+    if (tagsList.value.length >= 8) {
+      store.delTagsItem(0);
+    }
+
+    if (typeof route.name === "string") {
+      store.addTagsItem({
+        name: route.name,
+        title: route.meta.title || "",
+        path: route.fullPath,
+      });
+    }
+  }
+};
+setTags(route);
+onBeforeRouteUpdate((to) => {
+  setTags(to);
+});
+
+// 关闭全部标签
+const closeAll = () => {
+  store.clearAllTags();
+  router.push("/home");
+};
+// 关闭其他标签
+const closeOther = () => {
+  const curItem = tagsList.value.filter((item) => {
+    return item.path === route.fullPath;
+  });
+  store.closeTagsOther(curItem);
+};
+const handleTags = (command: string) => {
+  command === "other" ? closeOther() : closeAll();
+};
+
+// 关闭当前页面的标签页
+// store.commit("closeCurrentTag", {
+//     $router: router,
+//     $route: route
+// });
+</script>
 
 <style lang="less" scoped>
 .tags {

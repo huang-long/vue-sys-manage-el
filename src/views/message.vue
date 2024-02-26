@@ -1,17 +1,18 @@
-
-
-<style lang="less" scoped>
-</style>
 <template>
   <div class="container">
     <el-row :gutter="24">
       <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
         相关文档：
-        <a href="https://element-plus.gitee.io/zh-CN/component/alert.html" target="_blank">element-plus Alert</a>;
-        <a href="https://element-plus.gitee.io/zh-CN/component/dialog.html" target="_blank">element-plus Dialog</a>;
-        <a href="https://element-plus.gitee.io/zh-CN/component/drawer.html" target="_blank">element-plus Drawer</a>;
-        <a href="https://element-plus.gitee.io/zh-CN/component/message.html" target="_blank">element-plus Message</a>;
-        <a href="https://element-plus.gitee.io/zh-CN/component/message-box.html" target="_blank">element-plus MessageBox</a>;
+        <a href="https://element-plus.gitee.io/zh-CN/component/alert.html" target="_blank">element-plus Alert</a>
+        ;
+        <a href="https://element-plus.gitee.io/zh-CN/component/dialog.html" target="_blank">element-plus Dialog</a>
+        ;
+        <a href="https://element-plus.gitee.io/zh-CN/component/drawer.html" target="_blank">element-plus Drawer</a>
+        ;
+        <a href="https://element-plus.gitee.io/zh-CN/component/message.html" target="_blank">element-plus Message</a>
+        ;
+        <a href="https://element-plus.gitee.io/zh-CN/component/message-box.html" target="_blank">element-plus MessageBox</a>
+        ;
         <a href="https://element-plus.gitee.io/zh-CN/component/notification.html" target="_blank">element-plus Alert</a>
       </el-col>
     </el-row>
@@ -25,18 +26,14 @@
 
     <el-divider content-position="left">Dialog 弹窗</el-divider>
     <div>
-      <el-button text @click="dialogVisible = true">
-        打开
-      </el-button>
+      <el-button text @click="dialogVisible = true">打开</el-button>
 
       <el-dialog v-model="dialogVisible" title="Tips" width="30%" :before-close="handleClose">
         <span>This is a message</span>
         <template #footer>
           <span class="dialog-footer">
             <el-button @click="dialogVisible = false">Cancel</el-button>
-            <el-button type="primary" @click="dialogVisible = false">
-              Confirm
-            </el-button>
+            <el-button type="primary" @click="dialogVisible = false">Confirm</el-button>
           </span>
         </template>
       </el-dialog>
@@ -51,12 +48,8 @@
         <el-radio label="btt">bottom to top</el-radio>
       </el-radio-group>
 
-      <el-button type="primary" style="margin-left: 16px" @click="drawer = true">
-        open
-      </el-button>
-      <el-button type="primary" style="margin-left: 16px" @click="drawer2 = true">
-        with footer
-      </el-button>
+      <el-button type="primary" style="margin-left: 16px" @click="drawer = true">open</el-button>
+      <el-button type="primary" style="margin-left: 16px" @click="drawer2 = true">with footer</el-button>
 
       <el-drawer v-model="drawer" title="I am the title" :direction="direction" :before-close="handleClose2">
         <span>Hi, there!</span>
@@ -91,118 +84,110 @@
 
     <el-divider content-position="left">Notification 通知</el-divider>
     <div>
-      <el-button plain @click="open6"> Closes automatically </el-button>
-      <el-button plain @click="open7"> Won't close automatically </el-button>
+      <el-button plain @click="open6">Closes automatically</el-button>
+      <el-button plain @click="open7">Won't close automatically</el-button>
     </div>
-
   </div>
 </template>
 
 <script lang="ts" setup name="DemoMessage">
-import { h, ref } from 'vue'
-import { ElMessageBox, ElMessage, ElNotification } from 'element-plus'
+import { h, ref } from "vue";
+import { ElMessageBox, ElMessage, ElNotification } from "element-plus";
 
 const hello = () => {
-  alert('Hello World!')
-}
+  alert("Hello World!");
+};
 
-const dialogVisible = ref(false)
+const dialogVisible = ref(false);
 const handleClose = (done: () => void) => {
-  ElMessageBox.confirm('Are you sure to close this dialog?')
+  ElMessageBox.confirm("Are you sure to close this dialog?")
     .then(() => {
-      done()
+      done();
     })
     .catch(() => {
       // catch error
-    })
-}
+    });
+};
 
-const drawer = ref(false)
-const drawer2 = ref(false)
-const direction = ref('rtl')
-const radio1 = ref('Option 1')
+const drawer = ref(false);
+const drawer2 = ref(false);
+const direction = ref("rtl");
+const radio1 = ref("Option 1");
 const handleClose2 = (done: () => void) => {
-  ElMessageBox.confirm('Are you sure you want to close this?')
+  ElMessageBox.confirm("Are you sure you want to close this?")
     .then(() => {
-      done()
+      done();
     })
     .catch(() => {
       // catch error
-    })
-}
+    });
+};
 function cancelClick() {
-  drawer2.value = false
+  drawer2.value = false;
 }
 function confirmClick() {
   ElMessageBox.confirm(`Are you confirm to chose ${radio1.value} ?`)
     .then(() => {
-      drawer2.value = false
+      drawer2.value = false;
     })
     .catch(() => {
       // catch error
-    })
+    });
 }
-
 
 const open1 = () => {
-  ElMessage('this is a message.')
-}
+  ElMessage("this is a message.");
+};
 const open2 = () => {
   ElMessage({
-    message: 'Congrats, this is a success message.',
-    type: 'success',
-  })
-}
+    message: "Congrats, this is a success message.",
+    type: "success",
+  });
+};
 const open3 = () => {
   ElMessage({
-    message: 'Warning, this is a warning message.',
-    type: 'warning',
-  })
-}
+    message: "Warning, this is a warning message.",
+    type: "warning",
+  });
+};
 const open4 = () => {
-  ElMessage.error('Oops, this is a error message.')
-}
+  ElMessage.error("Oops, this is a error message.");
+};
 
 const open5 = () => {
-  ElMessageBox.confirm(
-    'proxy will permanently delete the file. Continue?',
-    'Warning',
-    {
-      confirmButtonText: 'OK',
-      cancelButtonText: 'Cancel',
-      type: 'warning',
-    }
-  )
+  ElMessageBox.confirm("proxy will permanently delete the file. Continue?", "Warning", {
+    confirmButtonText: "OK",
+    cancelButtonText: "Cancel",
+    type: "warning",
+  })
     .then(() => {
       ElMessage({
-        type: 'success',
-        message: 'Delete completed',
-      })
+        type: "success",
+        message: "Delete completed",
+      });
     })
     .catch(() => {
       ElMessage({
-        type: 'info',
-        message: 'Delete canceled',
-      })
-    })
-}
-
+        type: "info",
+        message: "Delete canceled",
+      });
+    });
+};
 
 const open6 = () => {
   ElNotification({
-    title: 'Title',
-    message: h('i', { style: 'color: teal' }, 'This is a reminder'),
-  })
-}
+    title: "Title",
+    message: h("i", { style: "color: teal" }, "This is a reminder"),
+  });
+};
 
 const open7 = () => {
   ElNotification({
-    title: 'Prompt',
-    message: 'This is a message that does not automatically close',
+    title: "Prompt",
+    message: "This is a message that does not automatically close",
     duration: 0,
-  })
-}
-
+  });
+};
 </script>
 <style lang="less" scoped>
 .el-alert {
@@ -212,4 +197,3 @@ const open7 = () => {
   margin: 0;
 }
 </style>
-

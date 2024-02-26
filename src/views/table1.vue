@@ -15,7 +15,7 @@
   </div>
 </template>
 <script lang="ts" setup name="DemoTable1">
-const generateColumns = (length = 10, prefix = "column-", props?: any) =>
+const generateColumns = (length = 10, prefix = "column-", props?: { [key: string]: string | number }) =>
   Array.from({ length }).map((_, columnIndex) => ({
     ...props,
     key: `${prefix}${columnIndex}`,
@@ -24,22 +24,16 @@ const generateColumns = (length = 10, prefix = "column-", props?: any) =>
     width: 150,
   }));
 
-const generateData = (
-  columns: ReturnType<typeof generateColumns>,
-  length = 200,
-  prefix = "row-"
-) =>
+const generateData = (columns: ReturnType<typeof generateColumns>, length = 200, prefix = "row-") =>
   Array.from({ length }).map((_, rowIndex) => {
-    return columns.reduce(
-      (rowData, column, columnIndex) => {
-        rowData[column.dataKey] = `Row ${rowIndex} - Col ${columnIndex}`;
-        return rowData;
-      },
-      {
-        id: `${prefix}${rowIndex}`,
-        parentId: null,
-      }
-    );
+    const row: { [key: string]: string | number | null } = {
+      id: `${prefix}${rowIndex}`,
+      parentId: null,
+    };
+    return columns.reduce((rowData, column, columnIndex) => {
+      rowData[column.dataKey] = `Row ${rowIndex} - Col ${columnIndex}`;
+      return rowData;
+    }, row);
   });
 
 const columns = generateColumns(10);

@@ -1,8 +1,11 @@
-
 <template>
   <div class="container">
     <div class="error-page">
-      <div class="error-code">4<span>0</span>4</div>
+      <div class="error-code">
+        4
+        <span>0</span>
+        4
+      </div>
       <div class="error-desc">啊哦~ 你所访问的页面不存在</div>
       <div class="error-handle">
         <router-link to="/">
@@ -38,22 +41,25 @@ const goBack = () => {
     font-weight: bolder;
     color: #2d8cf0;
   }
+
   .error-code {
     span {
       color: #00a854;
     }
   }
+
   .error-desc {
     font-size: 30px;
     color: #777;
   }
+
   .error-handle {
     margin-top: 30px;
     padding-bottom: 200px;
   }
+
   .error-btn {
     margin-left: 100px;
   }
 }
 </style>
-

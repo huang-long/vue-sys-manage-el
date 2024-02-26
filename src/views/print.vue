@@ -10,8 +10,8 @@
     <el-divider content-position="left">print</el-divider>
 
     <el-row :gutter="24">
-      <el-button type="primary" size="small" icon="Printer" v-print="printObj">打印</el-button>
-      <div id="loading" v-show="printLoading"></div>
+      <el-button v-print="printObj" type="primary" size="small" icon="Printer">打印</el-button>
+      <div v-show="printLoading" id="loading"></div>
     </el-row>
     <el-divider content-position="center">打印区域</el-divider>
     <div id="printMe" class="print-area">
@@ -26,45 +26,45 @@
 </template>
 
 <script lang="ts" setup name="DemoPrint" directives="print">
-import { ref } from 'vue';
-import type { PrintConf } from 'vue3-print-ts';
+import { ref } from "vue";
+import type { PrintConf } from "vue3-print-ts";
 
 const tableData = ref([
   {
-    date: '2016-05-03',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
+    date: "2016-05-03",
+    name: "Tom",
+    address: "No. 189, Grove St, Los Angeles",
   },
   {
-    date: '2016-05-02',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
+    date: "2016-05-02",
+    name: "Tom",
+    address: "No. 189, Grove St, Los Angeles",
   },
   {
-    date: '2016-05-04',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
+    date: "2016-05-04",
+    name: "Tom",
+    address: "No. 189, Grove St, Los Angeles",
   },
   {
-    date: '2016-05-01',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
+    date: "2016-05-01",
+    name: "Tom",
+    address: "No. 189, Grove St, Los Angeles",
   },
-])
+]);
 
-let printLoading = ref(true);
-let printObj= ref<PrintConf>({
+const printLoading = ref(true);
+const printObj = ref<PrintConf>({
   ids: "printMe",
-  printTitle: '打印测试',
+  printTitle: "打印测试",
   extraHead: '<meta http-equiv="Content-Language"content="zh-cn"/>',
   showBackground: true,
   beforePrint() {
-    console.log('打印之前')
+    console.log("打印之前");
   },
   afterPrint() {
-    console.log('打印之后')
-  }
-})
+    console.log("打印之后");
+  },
+});
 </script>
 <style lang="less" scoped>
 .print-area {

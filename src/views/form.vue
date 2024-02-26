@@ -1,4 +1,3 @@
-
 <template>
   <div class="container">
     <el-row :gutter="24">
@@ -10,8 +9,7 @@
 
     <el-divider content-position="left">form</el-divider>
 
-    <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" label-width="120px" class="demo-ruleForm"
-      :size="formSize" status-icon>
+    <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" label-width="120px" class="demo-ruleForm" :size="formSize" status-icon>
       <el-form-item label="活动名称" prop="name">
         <el-input v-model="ruleForm.name" />
       </el-form-item>
@@ -27,8 +25,7 @@
       <el-form-item label="活动时间" required>
         <el-col :span="11">
           <el-form-item prop="date1">
-            <el-date-picker v-model="ruleForm.date1" type="date" label="日期" placeholder="请选择日期"
-              style="width: 100%" />
+            <el-date-picker v-model="ruleForm.date1" type="date" label="日期" placeholder="请选择日期" style="width: 100%" />
           </el-form-item>
         </el-col>
         <el-col class="text-center" :span="2">
@@ -36,8 +33,7 @@
         </el-col>
         <el-col :span="11">
           <el-form-item prop="date2">
-            <el-time-picker v-model="ruleForm.date2" label="时间" placeholder="请选择时间"
-              style="width: 100%" />
+            <el-time-picker v-model="ruleForm.date2" label="时间" placeholder="请选择时间" style="width: 100%" />
           </el-form-item>
         </el-col>
       </el-form-item>
@@ -69,96 +65,94 @@
 </template>
 
 <script lang="ts" setup name="DemoForm">
-import { reactive, ref } from 'vue'
-import type { FormInstance, FormRules } from 'element-plus'
+import { reactive, ref } from "vue";
+import type { FormInstance, FormRules } from "element-plus";
 
-const formSize = ref('default')
-const ruleFormRef = ref<FormInstance>()
+const formSize = ref("default");
+const ruleFormRef = ref<FormInstance>();
 const ruleForm = reactive({
-  name: 'Hello',
-  region: '',
-  count: '',
-  date1: '',
-  date2: '',
+  name: "Hello",
+  region: "",
+  count: "",
+  date1: "",
+  date2: "",
   delivery: false,
   type: [],
-  resource: '',
-  desc: '',
-})
+  resource: "",
+  desc: "",
+});
 
 const rules = reactive<FormRules>({
   name: [
-    { required: true, message: '请输入姓名', trigger: 'blur' },
-    { min: 3, max: 5, message: '长度3到5', trigger: 'blur' },
+    { required: true, message: "请输入姓名", trigger: "blur" },
+    { min: 3, max: 5, message: "长度3到5", trigger: "blur" },
   ],
   region: [
     {
       required: true,
-      message: '请选择地区',
-      trigger: 'change',
+      message: "请选择地区",
+      trigger: "change",
     },
   ],
   count: [
     {
       required: true,
-      message: '请选择数量',
-      trigger: 'change',
+      message: "请选择数量",
+      trigger: "change",
     },
   ],
   date1: [
     {
-      type: 'date',
+      type: "date",
       required: true,
-      message: '请选择日期',
-      trigger: 'change',
+      message: "请选择日期",
+      trigger: "change",
     },
   ],
   date2: [
     {
-      type: 'date',
+      type: "date",
       required: true,
-      message: '请选择时间',
-      trigger: 'change',
+      message: "请选择时间",
+      trigger: "change",
     },
   ],
   type: [
     {
-      type: 'array',
+      type: "array",
       required: true,
-      message: '请选择活动类型',
-      trigger: 'change',
+      message: "请选择活动类型",
+      trigger: "change",
     },
   ],
   resource: [
     {
       required: true,
-      message: '请选择活动资源',
-      trigger: 'change',
+      message: "请选择活动资源",
+      trigger: "change",
     },
   ],
-  desc: [
-    { required: true, message: '请输入活动描述', trigger: 'blur' },
-  ],
-})
+  desc: [{ required: true, message: "请输入活动描述", trigger: "blur" }],
+});
 
 const submitForm = async (formEl: FormInstance | undefined) => {
-  if (!formEl) return
+  if (!formEl) return;
   await formEl.validate((valid, fields) => {
     if (valid) {
-      console.log('submit!')
+      console.log("submit!");
     } else {
-      console.log('error submit!', fields)
+      console.log("error submit!", fields);
     }
-  })
-}
+  });
+};
 
 const resetForm = (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  formEl.resetFields()
-}
+  if (!formEl) return;
+  formEl.resetFields();
+};
 
 const options = Array.from({ length: 10000 }).map((_, idx) => ({
   value: `${idx + 1}`,
   label: `${idx + 1}`,
-}))
+}));
 </script>

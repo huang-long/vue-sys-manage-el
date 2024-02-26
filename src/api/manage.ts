@@ -1,84 +1,86 @@
-import { axios } from '@/utils/request';
-import type { AxiosResponse, Method } from 'axios';
-import { ElMessage } from 'element-plus';
+import { axios } from "@/utils/request";
+import type { Method } from "axios";
+import { ElMessage } from "element-plus";
 // import { getContentType } from '../utils/contentType'
 
+//实际项目写法参照 https://gitee.com/huanglgln/ruoyi-web-vue3-ts
+
 const api = {
-  getUserInfo: '/getUserInfo',
-}
+  getUserInfo: "/getUserInfo",
+};
 
-export default api
-
+export default api;
+type ReqParamObj = { [key: string]: string | undefined | null | number };
 // post-blob,常用于接口返回流
-export function postBlobAction(url: string, parameter: any, timeout = 9000) {
+export function postBlobAction(url: string, parameter: ReqParamObj, timeout = 9000) {
   return axios({
     url: url,
-    method: 'post',
+    method: "post",
     data: parameter,
-    responseType: 'blob',
-    timeout: timeout
-  })
+    responseType: "blob",
+    timeout: timeout,
+  });
 }
 
 // post
-export function postAction(url: string, parameter: any) {
+export function postAction(url: string, parameter: ReqParamObj) {
   return axios({
     url: url,
-    method: 'post',
-    data: parameter
-  })
+    method: "post",
+    data: parameter,
+  });
 }
 
 // post method= {post | put}
-export function httpAction(url: string, parameter: any, method: Method | string) {
+export function httpAction(url: string, parameter: ReqParamObj, method: Method | string) {
   return axios({
     url: url,
     method: method,
-    data: parameter
-  })
+    data: parameter,
+  });
 }
 
 // put
-export function putAction(url: string, parameter: any) {
+export function putAction(url: string, parameter: ReqParamObj) {
   return axios({
     url: url,
-    method: 'put',
-    data: parameter
-  })
+    method: "put",
+    data: parameter,
+  });
 }
 
 // get
-export function getAction(url: string, parameter: any) {
+export function getAction(url: string, parameter: ReqParamObj) {
   return axios({
     url: url,
-    method: 'get',
-    params: parameter
-  })
+    method: "get",
+    params: parameter,
+  });
 }
 
 // deleteAction
-export function deleteAction(url: string, parameter: any) {
+export function deleteAction(url: string, parameter: ReqParamObj) {
   return axios({
     url: url,
-    method: 'delete',
-    params: parameter
-  })
+    method: "delete",
+    params: parameter,
+  });
 }
 
 /**
  * 下载文件 用于excel导出
  * @param url
  * @param parameter
- * @returns {*} 
+ * @returns {*}
  */
-export function downFile(url: string, parameter: any): Promise<AxiosResponse<any, any>> {
-  return axios({
+export function downFile(url: string, parameter?: ReqParamObj) {
+  return axios<ReqParamObj, Blob | MediaSource>({
     url: url,
     params: parameter,
-    method: 'get',
-    responseType: 'blob',
-    timeout: 5 * 60 * 1000
-  })
+    method: "get",
+    responseType: "blob",
+    timeout: 5 * 60 * 1000,
+  });
 }
 
 /**
@@ -88,37 +90,37 @@ export function downFile(url: string, parameter: any): Promise<AxiosResponse<any
  * @param parameter
  * @returns {*}
  */
-export function downloadFile(url: string, fileName: string, parameter: any): any {
+export function downloadFile(url: string, fileName: string, parameter: ReqParamObj) {
   // if(!fileName || fileName.split(.))
 
-  return downFile(url, parameter).then((data: any) => {
+  return downFile(url, parameter).then((data) => {
     if (!(data instanceof Blob)) {
-      ElMessage.error('文件下载失败')
-      return
+      ElMessage.error("文件下载失败");
+      return;
     }
     if (data.size === 0) {
-      ElMessage.error('文件下载失败')
-      return
+      ElMessage.error("文件下载失败");
+      return;
     }
 
     // const contentType = getContentType(fileName)
-    const nav = (window.navigator as any);
-    if (nav.msSaveBlob) {
-      // nav.msSaveBlob(new Blob([data], { type: contentType }), fileName)
-      nav.msSaveBlob(data, fileName)
-    } else {
-      // const fileUrl = window.URL.createObjectURL(new Blob([data], { type: contentType }))
-      const fileUrl = window.URL.createObjectURL(data)
-      const link = document.createElement('a')
-      link.style.display = 'none'
-      link.href = fileUrl
-      link.setAttribute('download', fileName)
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link) // 下载完成移除元素
-      window.URL.revokeObjectURL(fileUrl) // 释放掉blob对象
-    }
-  })
+    // const nav = window.navigator;
+    // if (nav.msSaveBlob) {
+    //   // nav.msSaveBlob(new Blob([data], { type: contentType }), fileName)
+    //   nav.msSaveBlob(data, fileName);
+    // } else {
+    // const fileUrl = window.URL.createObjectURL(new Blob([data], { type: contentType }))
+    const fileUrl = window.URL.createObjectURL(data);
+    const link = document.createElement("a");
+    link.style.display = "none";
+    link.href = fileUrl;
+    link.setAttribute("download", fileName);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link); // 下载完成移除元素
+    window.URL.revokeObjectURL(fileUrl); // 释放掉blob对象
+    // }
+  });
 }
 
 /**
@@ -127,14 +129,13 @@ export function downloadFile(url: string, fileName: string, parameter: any): any
  * @param parameter
  * @returns {*}
  */
-export function uploadAction(url: string, parameter: any): Promise<AxiosResponse<any, any>> {
+export function uploadAction(url: string, parameter: ReqParamObj) {
   return axios({
     url: url,
     data: parameter,
-    method: 'post',
+    method: "post",
     headers: {
-      'Content-Type': 'multipart/form-data' // 文件上传
-    }
-  })
+      "Content-Type": "multipart/form-data", // 文件上传
+    },
+  });
 }
-

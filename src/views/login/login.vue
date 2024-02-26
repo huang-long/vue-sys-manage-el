@@ -10,7 +10,7 @@ const loginFormRules = {
   loginName: [{ required: true, message: "不能为空", trigger: "blur" }],
   password: [{ required: true, message: "不能为空", trigger: "blur" }],
 };
-let formData = reactive({
+const formData = reactive({
   loginName: "admin",
   password: "123456",
 });
@@ -23,9 +23,9 @@ const resetPassword = () => {
   router.push("/resetPassword");
 };
 
-let loginForm = ref();
+const loginForm = ref();
 const handleSubmit = () => {
-  if (loginForm) {
+  if (loginForm.value) {
     loginForm.value.validate((valid: boolean) => {
       if (!valid) return;
       store.setLoginUser(formData.loginName);
@@ -42,7 +42,6 @@ const handleSubmit = () => {
     <div class="login-bg">
       <div class="login-ctn">
         <el-form ref="loginForm" :model="formData" :rules="loginFormRules" class="login-form" label-position="right" label-width="60px">
-
           <div class="login-logo">
             <img src="../../images/logo.png" alt="系统管理平台" />
           </div>

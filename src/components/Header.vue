@@ -12,7 +12,6 @@
     <div class="logo">后台管理系统</div>
     <div class="header-right">
       <div class="header-user-con">
-
         <el-icon ref="myFullscreen" @click="toggleFullscreen">
           <component :is="isScreenfull ? 'Close' : 'FullScreen'" />
         </el-icon>
@@ -26,7 +25,7 @@
               </el-icon>
             </router-link>
           </el-tooltip>
-          <span class="btn-bell-badge" v-if="message"></span>
+          <span v-if="message" class="btn-bell-badge"></span>
         </div>
         <!-- 用户头像 -->
         <div class="user-avator">
@@ -54,63 +53,49 @@
     </div>
   </div>
 </template>
-<script lang="ts">
+<script lang="ts" setup name="CompHeader">
 import { computed, onMounted, ref } from "vue";
 import { userStore } from "../stores/counter";
 import { useRouter } from "vue-router";
 import screenfull from "screenfull";
 
-export default {
-  setup() {
-    const message = 2;
-    const store = userStore();
-    const collapse = computed(() => store.meunIsCollapsed);
-    const username = computed(() => store.loginUser);
-    let isScreenfull = ref(false);
+const message = 2;
+const store = userStore();
+const collapse = computed(() => store.meunIsCollapsed);
+const username = computed(() => store.loginUser);
+const isScreenfull = ref(false);
 
-    // 侧边栏折叠
-    const collapseChage = () => {
-      store.setMeunIsCollapsed(!collapse.value);
-    };
-
-    onMounted(() => {
-      if (document.body.clientWidth < 1500) {
-        collapseChage();
-      }
-    });
-
-    // 用户名下拉菜单选择事件
-    const router = useRouter();
-    const handleCommand = (command: string) => {
-      if (command == "loginout") {
-        localStorage.removeItem("ms_username");
-        router.push("/login");
-      } else if (command == "user") {
-        router.push("/user");
-      }
-    };
-
-    const toggleFullscreen = () => {
-      //判断是否支持全屏
-      if (screenfull.isEnabled) {
-        screenfull.toggle();
-      }
-    };
-    screenfull.onchange(() => {
-      isScreenfull.value = !isScreenfull.value;
-    });
-
-    return {
-      isScreenfull,
-      username,
-      message,
-      collapse,
-      collapseChage,
-      handleCommand,
-      toggleFullscreen,
-    };
-  },
+// 侧边栏折叠
+const collapseChage = () => {
+  store.setMeunIsCollapsed(!collapse.value);
 };
+
+onMounted(() => {
+  if (document.body.clientWidth < 1500) {
+    collapseChage();
+  }
+});
+
+// 用户名下拉菜单选择事件
+const router = useRouter();
+const handleCommand = (command: string) => {
+  if (command == "loginout") {
+    localStorage.removeItem("ms_username");
+    router.push("/login");
+  } else if (command == "user") {
+    router.push("/user");
+  }
+};
+
+const toggleFullscreen = () => {
+  //判断是否支持全屏
+  if (screenfull.isEnabled) {
+    screenfull.toggle();
+  }
+};
+screenfull.onchange(() => {
+  isScreenfull.value = !isScreenfull.value;
+});
 </script>
 <style lang="less" scoped>
 .header {
@@ -177,6 +162,7 @@ export default {
 
       .user-avator {
         margin-left: 20px;
+
         img {
           display: block;
           width: 40px;

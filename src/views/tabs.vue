@@ -1,7 +1,3 @@
-
-
-<style lang="less" scoped>
-</style>
 <template>
   <div class="container">
     <el-row :gutter="24">
@@ -27,8 +23,8 @@
   </div>
 </template>
 <script lang="ts" setup name="DemoTabs">
-import { ref } from 'vue'
-const tabPosition = ref('left')
+import { ref } from "vue";
+const tabPosition = ref("left");
 </script>
 <style lang="less" scoped>
 .demo-tabs {

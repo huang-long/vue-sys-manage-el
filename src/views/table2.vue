@@ -10,8 +10,15 @@
     <el-divider content-position="left">vxe-table</el-divider>
 
     <div>
-      <vxe-table border show-overflow ref="xTable" :column-config="{resizable: true}" :loading="demo1.loading"
-        :data="demo1.tableData" :edit-config="{trigger: 'manual', mode: 'row'}">
+      <vxe-table
+        ref="xTable"
+        border
+        show-overflow
+        :column-config="{ resizable: true }"
+        :loading="demo1.loading"
+        :data="demo1.tableData"
+        :edit-config="{ trigger: 'manual', mode: 'row' }"
+      >
         <vxe-column type="seq" width="60"></vxe-column>
         <vxe-column field="name" title="Name" :edit-render="{}">
           <template #edit="{ row }">
@@ -29,8 +36,7 @@
           </template>
           <template #edit="{ row }">
             <vxe-select v-model="row.sex" transfer>
-              <vxe-option v-for="item in demo1.sexList" :key="item.value" :value="item.value" :label="item.label">
-              </vxe-option>
+              <vxe-option v-for="item in demo1.sexList" :key="item.value" :value="item.value" :label="item.label"></vxe-option>
             </vxe-select>
           </template>
         </vxe-column>
@@ -40,8 +46,7 @@
           </template>
           <template #edit="{ row }">
             <vxe-select v-model="row.sex2" multiple transfer>
-              <vxe-option v-for="item in demo1.sexList" :key="item.value" :value="item.value" :label="item.label">
-              </vxe-option>
+              <vxe-option v-for="item in demo1.sexList" :key="item.value" :value="item.value" :label="item.label"></vxe-option>
             </vxe-select>
           </template>
         </vxe-column>
@@ -67,7 +72,7 @@
         </vxe-column>
         <vxe-column title="操作" width="160">
           <template #default="{ row }">
-            <template v-if="$refs.xTable.isEditByRow(row)">
+            <template v-if="xTable?.isEditByRow(row)">
               <vxe-button @click="saveRowEvent(row)">保存</vxe-button>
               <vxe-button @click="cancelRowEvent(row)">取消</vxe-button>
             </template>
@@ -81,93 +86,136 @@
   </div>
 </template>
 
-<script lang="ts">
-import { reactive, ref } from 'vue'
-import { VXETable } from 'vxe-table'
-import type { VxeTableInstance } from 'vxe-table'
+<script lang="ts" setup name="demoTable2">
+import { reactive, ref } from "vue";
+import { VXETable } from "vxe-table";
+type TableData = {
+  id: number;
+  name?: string;
+  nickname?: string;
+  role?: string;
+  sex?: string;
+  sex2?: string[];
+  num1?: number;
+  age?: number;
+  address?: string;
+  date12?: string;
+  date13?: string;
+};
 
-export default {
-  name: "DemoTable2",
-  setup() {
-    const xTable = ref<VxeTableInstance>()
-    interface ItemVO {
-      id: number;
-      name: string;
-      nickname: string;
-      [key: string]: any;
-    }
-    const demo1 = reactive({
-      loading: false,
-      tableData: [
-        { id: 10001, name: 'Test1', nickname: 'T1', role: 'Develop', sex: '0', sex2: ['0'], num1: 40, age: 28, address: 'Shenzhen', date12: '', date13: '' },
-        { id: 10002, name: 'Test2', nickname: 'T2', role: 'Designer', sex: '1', sex2: ['0', '1'], num1: 20, age: 22, address: 'Guangzhou', date12: '', date13: '2020-08-20' },
-        { id: 10003, name: 'Test3', nickname: 'T3', role: 'Test', sex: '0', sex2: ['1'], num1: 200, age: 32, address: 'Shanghai', date12: '2020-09-10', date13: '' },
-        { id: 10004, name: 'Test4', nickname: 'T4', role: 'Designer', sex: '1', sex2: ['1'], num1: 30, age: 23, address: 'Shenzhen', date12: '', date13: '2020-12-04' }
-      ] as ItemVO[],
-      sexList: [
-        { label: '', value: '' },
-        { label: '男', value: '1' },
-        { label: '女', value: '0' }
-      ]
-    })
+const xTable = ref();
+const demo1 = reactive<{
+  loading: boolean;
+  tableData: TableData[];
+  sexList: { label: string; value: string }[];
+}>({
+  loading: false,
+  tableData: [
+    {
+      id: 10001,
+      name: "Test1",
+      nickname: "T1",
+      role: "Develop",
+      sex: "0",
+      sex2: ["0"],
+      num1: 40,
+      age: 28,
+      address: "Shenzhen",
+      date12: "",
+      date13: "",
+    },
+    {
+      id: 10002,
+      name: "Test2",
+      nickname: "T2",
+      role: "Designer",
+      sex: "1",
+      sex2: ["0", "1"],
+      num1: 20,
+      age: 22,
+      address: "Guangzhou",
+      date12: "",
+      date13: "2020-08-20",
+    },
+    {
+      id: 10003,
+      name: "Test3",
+      nickname: "T3",
+      role: "Test",
+      sex: "0",
+      sex2: ["1"],
+      num1: 200,
+      age: 32,
+      address: "Shanghai",
+      date12: "2020-09-10",
+      date13: "",
+    },
+    {
+      id: 10004,
+      name: "Test4",
+      nickname: "T4",
+      role: "Designer",
+      sex: "1",
+      sex2: ["1"],
+      num1: 30,
+      age: 23,
+      address: "Shenzhen",
+      date12: "",
+      date13: "2020-12-04",
+    },
+  ],
+  sexList: [
+    { label: "", value: "" },
+    { label: "男", value: "1" },
+    { label: "女", value: "0" },
+  ],
+});
 
-    const formatSex = (value: any) => {
-      if (value === '1') {
-        return '男'
-      }
-      if (value === '0') {
-        return '女'
-      }
-      return ''
-    }
+const formatSex = (value: string) => {
+  if (value === "1") {
+    return "男";
+  }
+  if (value === "0") {
+    return "女";
+  }
+  return "";
+};
 
-    const formatMultiSex = (values: any[]) => {
-      if (values) {
-        return values.map(val => formatSex(val)).join(',')
-      }
-      return ''
-    }
+const formatMultiSex = (values: string[]) => {
+  if (values) {
+    return values.map((val) => formatSex(val)).join(",");
+  }
+  return "";
+};
 
-    const isActiveStatus = (row: ItemVO) => {
-      const $table = xTable.value
-      return $table?.isEditByRow(row)
-    }
+// const isActiveStatus = (row: TableData) => {
+//   const $table = xTable.value;
+//   return $table?.isEditByRow(row);
+// };
 
-    const editRowEvent = (row: ItemVO) => {
-      const $table = xTable.value
-      $table?.setEditRow(row)
-    }
+const editRowEvent = (row: TableData) => {
+  const $table = xTable.value;
+  $table?.setEditRow(row);
+};
 
-    const saveRowEvent = () => {
-      const $table = xTable.value
-      $table?.clearEdit().then(() => {
-        demo1.loading = true
-        setTimeout(() => {
-          demo1.loading = false
-          VXETable.modal.message({ content: '保存成功！', status: 'success' })
-        }, 300)
-      })
-    }
+const saveRowEvent = (row: TableData) => {
+  console.log(row);
+  const $table = xTable.value;
+  $table?.clearEdit().then(() => {
+    demo1.loading = true;
+    setTimeout(() => {
+      demo1.loading = false;
+      VXETable.modal.message({ content: "保存成功！", status: "success" });
+    }, 300);
+  });
+};
 
-    const cancelRowEvent = (row: ItemVO) => {
-      const $table = xTable.value
-      $table?.clearEdit().then(() => {
-        // 还原行数据
-        $table?.revertData(row)
-      })
-    }
-
-    return {
-      xTable,
-      demo1,
-      formatSex,
-      formatMultiSex,
-      isActiveStatus,
-      editRowEvent,
-      saveRowEvent,
-      cancelRowEvent
-    }
-  },
+const cancelRowEvent = (row: TableData) => {
+  const $table = xTable.value;
+  $table?.clearEdit().then(() => {
+    // 还原行数据
+    $table?.revertData(row);
+  });
 };
 </script>
 <style lang="less" scoped>

@@ -1,5 +1,3 @@
-<style lang="less" scoped>
-</style>
 <template>
   <div class="container">
     <el-row :gutter="24">
@@ -15,18 +13,28 @@
 
     <el-row :gutter="24">
       通过切换语言按钮，来改变当前内容的语言。
-      <el-button type="primary" @click="changeLang()" size="small">切换语言</el-button>
+      <el-button type="primary" size="small" @click="changeLang()">切换语言</el-button>
     </el-row>
 
     <el-divider content-position="left">vue3 vue-i18n</el-divider>
 
     <el-row>
       <el-descriptions :title="t('oldManAndSea.title')" :column="1" size="small">
-        <el-descriptions-item label="1.">{{t('oldManAndSea.famous[0]')}}</el-descriptions-item>
-        <el-descriptions-item label="2.">{{t('oldManAndSea.famous[1]')}}</el-descriptions-item>
-        <el-descriptions-item label="3.">{{t('oldManAndSea.famous[2]')}}</el-descriptions-item>
-        <el-descriptions-item label="5.">{{t('oldManAndSea.famous[3]')}}</el-descriptions-item>
-        <el-descriptions-item label="5.">{{t('oldManAndSea.famous[4]')}}</el-descriptions-item>
+        <el-descriptions-item label="1.">
+          {{ t("oldManAndSea.famous[0]") }}
+        </el-descriptions-item>
+        <el-descriptions-item label="2.">
+          {{ t("oldManAndSea.famous[1]") }}
+        </el-descriptions-item>
+        <el-descriptions-item label="3.">
+          {{ t("oldManAndSea.famous[2]") }}
+        </el-descriptions-item>
+        <el-descriptions-item label="5.">
+          {{ t("oldManAndSea.famous[3]") }}
+        </el-descriptions-item>
+        <el-descriptions-item label="5.">
+          {{ t("oldManAndSea.famous[4]") }}
+        </el-descriptions-item>
       </el-descriptions>
     </el-row>
 
@@ -38,15 +46,11 @@
     </el-config-provider>
   </div>
 </template>
-
 <script lang="ts" setup name="DemoI18n">
 import { useI18n } from "vue-i18n";
 import type { ComponentInternalInstance } from "vue";
 import { getCurrentInstance, computed } from "vue";
-// @ts-ignore
-import zhCn from "element-plus/dist/locale/zh-cn.mjs";
-// @ts-ignore
-import en from "element-plus/dist/locale/en.mjs";
+import { zhCn, en } from "element-plus/es/locales";
 
 const { t } = useI18n();
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
@@ -61,3 +65,5 @@ const changeLang = () => {
   }
 };
 </script>
+
+<style lang="less" scoped></style>

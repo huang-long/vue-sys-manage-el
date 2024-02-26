@@ -74,26 +74,22 @@ typeMap.set("3gp", "video/3gpp"); // 3GPP audio/video 容器 video/3gpp、audio/
 typeMap.set("3g2", "video/3gpp2"); // 3GPP2 audio/video 容器 video/3gpp2、audio/3gpp2（不含视频）
 typeMap.set("7z", "application/x-7z-compressed"); // 7-zip
 
-export default typeMap
+export default typeMap;
 
 const getContentType = function (filename: string): string {
-    if (!filename || filename.trim() == "") {
-        throw "filename is null"
-    }
-    const name = filename.split(".")
-    if (name.length < 2) {
-        return "text/xml"
-    }
+  if (!filename || filename.trim() == "") {
+    throw "filename is null";
+  }
+  const name = filename.split(".");
+  if (name.length < 2) {
+    return "text/xml";
+  }
 
-    if (typeMap.get(name[name.length - 1])) {
-        return typeMap.get(name[name.length - 1])
-    }
+  if (typeMap.get(name[name.length - 1])) {
+    return typeMap.get(name[name.length - 1]);
+  }
 
-    return "text/xml"
-}
+  return "text/xml";
+};
 
-export {
-    getContentType
-}
-
-
+export { getContentType };

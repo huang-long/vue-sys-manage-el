@@ -1,5 +1,3 @@
-<style lang="less" scoped>
-</style>
 <template>
   <div class="container">
     <el-row :gutter="24">
@@ -15,7 +13,7 @@
       <el-icon>
         <Edit />
       </el-icon>
-      <Edit style="width:16px;height:16px;" />
+      <Edit style="width: 16px; height: 16px" />
     </div>
 
     <pre><code><span class="token comment">&lt;!-- 使用 el-icon 为 SVG 图标提供属性 --&gt;</span>
@@ -31,6 +29,6 @@
     </code></pre>
   </div>
 </template>
+<script lang="ts" setup name="DemoIcon"></script>
 
-<script lang="ts" setup name="DemoIcon">
-</script>
+<style lang="less" scoped></style>

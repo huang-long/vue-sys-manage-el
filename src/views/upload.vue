@@ -1,7 +1,3 @@
-
-
-<style lang="less" scoped>
-</style>
 <template>
   <div class="container">
     <el-row :gutter="24">
@@ -13,8 +9,13 @@
 
     <el-divider content-position="left">upload</el-divider>
 
-    <el-upload class="avatar-uploader" action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-      :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+    <el-upload
+      class="avatar-uploader"
+      action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+      :show-file-list="false"
+      :on-success="handleAvatarSuccess"
+      :before-upload="beforeAvatarUpload"
+    >
       <img v-if="imageUrl" :src="imageUrl" class="avatar" />
       <el-icon v-else class="avatar-uploader-icon">
         <Plus />
@@ -23,30 +24,27 @@
   </div>
 </template>
 <script lang="ts" setup name="DemoUpload">
-import { ref } from 'vue'
-import { ElMessage } from 'element-plus'
-import type { UploadProps } from 'element-plus'
+import { ref } from "vue";
+import { ElMessage } from "element-plus";
+import type { UploadProps } from "element-plus";
 // import { Plus } from '@element-plus/icons-vue'
 
-const imageUrl = ref('')
+const imageUrl = ref("");
 
-const handleAvatarSuccess: UploadProps['onSuccess'] = (
-  response,
-  uploadFile
-) => {
-  imageUrl.value = URL.createObjectURL(uploadFile.raw!)
-}
+const handleAvatarSuccess: UploadProps["onSuccess"] = (response, uploadFile) => {
+  uploadFile.raw && (imageUrl.value = URL.createObjectURL(uploadFile.raw));
+};
 
-const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
-  if (rawFile.type !== 'image/jpeg') {
-    ElMessage.error('Avatar picture must be JPG format!')
-    return false
+const beforeAvatarUpload: UploadProps["beforeUpload"] = (rawFile) => {
+  if (rawFile.type !== "image/jpeg") {
+    ElMessage.error("Avatar picture must be JPG format!");
+    return false;
   } else if (rawFile.size / 1024 / 1024 > 2) {
-    ElMessage.error('Avatar picture size can not exceed 2MB!')
-    return false
+    ElMessage.error("Avatar picture size can not exceed 2MB!");
+    return false;
   }
-  return true
-}
+  return true;
+};
 </script>
 
 <style lang="less" scoped>
@@ -65,6 +63,7 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
     overflow: hidden;
     transition: var(--el-transition-duration-fast);
   }
+
   .el-upload:hover {
     border-color: var(--el-color-primary);
   }

@@ -1,11 +1,3 @@
-
-<style lang="less" scoped>
-.page {
-  padding: 10px 0;
-  display: flex;
-  justify-content: right;
-}
-</style>
 <template>
   <div class="container">
     <el-row :gutter="24">
@@ -25,9 +17,16 @@
     </el-table>
   </div>
 </template>
-
 <script lang="ts" setup name="DemoTable">
 import { reactive } from "vue";
 import { tableDataList } from "../data/tableList";
 const tableData = reactive(tableDataList);
 </script>
+
+<style lang="less" scoped>
+.page {
+  padding: 10px 0;
+  display: flex;
+  justify-content: right;
+}
+</style>

@@ -7,11 +7,11 @@
       <div class="content">
         <div class="crumbs">
           <el-breadcrumb separator-icon="ArrowRight">
-            <el-breadcrumb-item class="my-breadcrumb-item" v-for='(item, index) in tagsTree' :key="index">
+            <el-breadcrumb-item v-for="(item, index) in tagsTree" :key="index" class="my-breadcrumb-item">
               <el-icon v-if="item.icon">
                 <component :is="item.icon" />
               </el-icon>
-              {{item.title}}
+              {{ item.title }}
             </el-breadcrumb-item>
           </el-breadcrumb>
         </div>
@@ -26,7 +26,7 @@
     </div>
   </div>
 </template>
-<script lang="ts">
+<script lang="ts" name="MainPage">
 import { computed } from "vue";
 import { userStore } from "../stores/counter";
 import vHeader from "../components/Header.vue";
@@ -43,16 +43,14 @@ export default {
   setup() {
     const route = useRoute();
     const store = userStore();
-    const tagsList = computed(() =>
-      store.tagsList.map((item) => item.name)
-    );
+    const tagsList = computed(() => store.tagsList.map((item) => item.name));
 
     const tagsTree = computed(() => route.meta.tagsTree);
     const collapse = computed(() => store.meunIsCollapsed);
     return {
       tagsList,
       collapse,
-      tagsTree
+      tagsTree,
     };
   },
 };

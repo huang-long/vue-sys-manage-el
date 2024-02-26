@@ -1,97 +1,97 @@
 .login {
-    display: flex;
+  display: flex;
+  width: 100%;
+  height: 100%;
+
+  &-bg {
     width: 100%;
-    height: 100%;
+    background: url("../../images/login-bg.jpg") center center no-repeat;
+    background-size: 100% 100%;
+    background-origin: content-box;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-    &-bg {
+  &-ctn {
+    width: 500px;
+    background-color: #fff;
+    border-radius: 10px;
+  }
+
+  &-logo {
+    width: 60%;
+    margin: 0 auto 30px;
+    overflow: hidden;
+
+    > img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &-form {
+    width: 100%;
+    padding: 10%;
+    box-sizing: border-box;
+
+    :deep(.el-form-item) {
+      > label::before {
+        display: none !important;
+      }
+
+      > label {
+        font-size: 14px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #494949;
+        text-align: left;
+      }
+    }
+
+    input {
+      /* height: 70px; */
+      color: #888;
+      background-color: #ffffff;
+      box-sizing: border-box;
+    }
+
+    .row-regist {
+      margin-top: -5px;
+      padding-left: 50px;
+
+      > span {
+        font-size: 14px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #1c6d6b;
+        line-height: 20px;
+        margin-right: 10px;
+        cursor: pointer;
+      }
+    }
+
+    .row-button {
+      text-align: center;
+      padding-top: 27px;
+
+      button {
         width: 100%;
-        background: url('../../images/login-bg.jpg') center center no-repeat;
-        background-size: 100% 100%;
-        background-origin: content-box;
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        height: 40px;
+        font-size: 16px;
+      }
     }
 
-    &-ctn {
-        width: 500px;
-        background-color: #fff;
-        border-radius: 10px;
+    .captcha_div {
+      display: flex;
+      align-items: center;
+
+      img {
+        width: 80px;
+        height: 80%;
+        margin-left: 10px;
+      }
     }
-
-    &-logo {
-        width: 60%;
-        margin: 0 auto 30px;
-        overflow: hidden;
-
-        >img {
-            width: 100%;
-            height: 100%;
-        }
-    }
-
-    &-form {
-        width: 100%;
-        padding: 10%;
-        box-sizing: border-box;
-
-        :deep(.el-form-item) {
-            >label::before {
-                display: none !important;
-            }
-
-            >label {
-                font-size: 14px;
-                font-family: PingFangSC-Regular, PingFang SC;
-                font-weight: 400;
-                color: #494949;
-                text-align: left;
-            }
-        }
-
-        input {
-            /* height: 70px; */
-            color: #888;
-            background-color: #ffffff;
-            box-sizing: border-box;
-        }
-
-        .row-regist {
-            margin-top: -5px;
-            padding-left: 50px;
-
-            >span {
-                font-size: 14px;
-                font-family: PingFangSC-Regular, PingFang SC;
-                font-weight: 400;
-                color: #1C6D6B;
-                line-height: 20px;
-                margin-right: 10px;
-                cursor: pointer;
-            }
-        }
-
-        .row-button {
-            text-align: center;
-            padding-top: 27px;
-
-            button {
-                width: 100%;
-                height: 40px;
-                font-size: 16px;
-            }
-        }
-
-        .captcha_div {
-            display: flex;
-            align-items: center;
-
-            img {
-                width: 80px;
-                height: 80%;
-                margin-left: 10px;
-            }
-        }
-    }
+  }
 }

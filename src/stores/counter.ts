@@ -1,29 +1,28 @@
-import type { Menu } from '@/data/menuList';
-import { loadMenuRouter } from '@/router/loadMenuRouter';
-import { defineStore } from 'pinia';
-import { menuList1, menuList2 } from '../data/menuList';
-import router from '../router';
+import type { Menu } from "@/data/menuList";
+import { loadMenuRouter } from "@/router/loadMenuRouter";
+import { defineStore } from "pinia";
+import { menuList1, menuList2 } from "../data/menuList";
+import router from "../router";
 
 interface Tag {
-  path: string,
-  name: string,
-  title: string,
+  path: string;
+  name: string;
+  title: string;
 }
 
 export declare interface Store {
-  tagsList: Tag[],
-  meunIsCollapsed: boolean,
-  loginUser: string | null,
-  menuList: Menu[],
+  tagsList: Tag[];
+  meunIsCollapsed: boolean;
+  loginUser: string | null;
+  menuList: Menu[];
 }
 
 export const userStore = defineStore({
-  id: 'counter',
+  id: "counter",
   state: (): Store => {
-
     //刷新后，重新加载缓存中的页签
     let tagsList: Tag[] = [];
-    let tagStr = sessionStorage.getItem("store_tagsList");
+    const tagStr = sessionStorage.getItem("store_tagsList");
     if (tagStr && tagStr != "") {
       tagsList = JSON.parse(tagStr);
     }
@@ -33,7 +32,7 @@ export const userStore = defineStore({
 
     //刷新后，重新加载缓存中的动态路由
     let menuList: Menu[] = [];
-    let menuStr = sessionStorage.getItem("store_menuList");
+    const menuStr = sessionStorage.getItem("store_menuList");
     if (menuStr && menuStr != "") {
       menuList = JSON.parse(menuStr);
       // loadMenuRouter(router, menuList);
@@ -44,7 +43,7 @@ export const userStore = defineStore({
       meunIsCollapsed: false,
       loginUser: loginUser,
       menuList: menuList,
-    }
+    };
   },
   getters: {
     //方法名称参照官网
@@ -56,7 +55,7 @@ export const userStore = defineStore({
       sessionStorage.setItem("store_menuList", JSON.stringify(this.menuList));
     },
     loadMenu() {
-      let list = this.loginUser == "admin" ? menuList1 : menuList2;
+      const list = this.loginUser == "admin" ? menuList1 : menuList2;
       this.clearAllTags();
       this.setMenuList(list);
       loadMenuRouter(router, list);
@@ -91,5 +90,5 @@ export const userStore = defineStore({
     closeTagsOther(tagsList: Tag[]) {
       this.setTagsItem(tagsList);
     },
-  }
-})
+  },
+});

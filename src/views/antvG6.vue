@@ -1,42 +1,3 @@
-
-
-<style lang="less" scoped>
-.my-relation-graph {
-  position: relative;
-
-  .query-form {
-    position: absolute;
-    right: 0;
-    top: -14px;
-
-    .reference {
-      background: transparent;
-      display: inline-block;
-      width: 40px;
-      height: 1px;
-    }
-  }
-
-  :deep(.g6-component-toolbar) {
-    right: 0;
-    top: 0;
-    left: auto;
-    display: flex;
-    flex-direction: column;
-
-    li {
-      width: 36px;
-      height: 36px;
-      padding: 6px;
-      color: #606266;
-
-      i {
-        font-size: 24px;
-      }
-    }
-  }
-}
-</style>
 <template>
   <div class="container">
     <el-row :gutter="24">
@@ -59,11 +20,11 @@
 
 <script lang="ts" setup name="AntvG6Graph">
 import { data } from "../data/graph";
-import G6, { Graph, type EdgeConfig, type IGroup } from "@antv/g6";
+import G6, { Graph, type EdgeConfig, type IGroup, type INode } from "@antv/g6";
 import { nextTick, onMounted } from "vue";
 
 let graph: Graph;
-let edgeCount = new Map(); // 两个节点边的数量
+const edgeCount = new Map(); // 两个节点边的数量
 
 /**
  * 初始化插件（Tooltip、EdgeTooltip）
@@ -75,12 +36,12 @@ const initPlugins = () => {
     offsetX: 10,
     offsetY: 20,
     getContent(e) {
-      let name = e?.item?.getModel().name as string
+      const name = e?.item?.getModel().name as string;
       return name ? name : "";
     },
     itemTypes: ["node"],
     shouldBegin(e) {
-      let states = e?.item?.getStates()
+      const states = e?.item?.getStates();
       if (states && states.indexOf("dark") >= 0) {
         return false;
       } else {
@@ -93,9 +54,9 @@ const initPlugins = () => {
     offsetX: 10,
     offsetY: 20,
     getContent(e) {
-      let prop = e?.item?.getModel().properties;
+      const prop = e?.item?.getModel().properties;
       if (prop instanceof Object) {
-        let { role } = prop as { role?: string };
+        const { role } = prop as { role?: string };
         return "关系：" + role;
       } else {
         return "关系：无";
@@ -103,7 +64,7 @@ const initPlugins = () => {
     },
     itemTypes: ["edge"],
     shouldBegin(e) {
-      let states = e?.item?.getStates()
+      const states = e?.item?.getStates();
       if (states && states.indexOf("dark") >= 0) {
         return false;
       } else {
@@ -169,10 +130,10 @@ const clearAllStats = () => {
  * 设置选中数据状态
  * @param {*} e 元素
  */
-const lightNode = (e: { item: any; }) => {
-  var item = e.item;
+const lightNode = (e: { item: INode }) => {
+  const item = e.item;
   graph.setAutoPaint(false);
-  let nodeIds: Array<string> = [];
+  const nodeIds: Array<string> = [];
   // 所有节点置灰
   graph.getNodes().forEach(function (node) {
     graph.clearItemStates(node);
@@ -205,7 +166,7 @@ const lightNode = (e: { item: any; }) => {
   });
   // 选中的节点展示在最上层
   const group = graph.getGroup().getChildByIndex(2) as IGroup;
-  group.getChildren().forEach(item => {
+  group.getChildren().forEach((item) => {
     if (nodeIds.indexOf(item.cfg.id) >= 0) {
       item.cfg.zIndex = 1;
     } else {
@@ -225,12 +186,12 @@ const lightNode = (e: { item: any; }) => {
  */
 const computeCurveOffset = (edge: EdgeConfig) => {
   if (edge.source && edge.target) {
-    let tempCode = edge.source > edge.target ? edge.source + edge.target : edge.target + edge.source;
-    let tempIndex = edgeCount.get(tempCode) === undefined ? 0 : edgeCount.get(tempCode) + 1;
+    const tempCode = edge.source > edge.target ? edge.source + edge.target : edge.target + edge.source;
+    const tempIndex = edgeCount.get(tempCode) === undefined ? 0 : edgeCount.get(tempCode) + 1;
     edgeCount.set(tempCode, tempIndex);
     return Math.pow(-1, tempIndex) * Math.round(tempIndex / 2) * 20;
   } else {
-    return 0
+    return 0;
   }
 };
 
@@ -350,19 +311,19 @@ const initAntvG6Graph = () => {
 };
 
 const resetGraph = () => {
-  let graphData = {
+  const graphData = {
     nodes: data.nodes.map(function (node) {
       if (node.name && typeof node.name == "string") {
         node.label = node.name.length > 3 ? node.name.substring(0, 2) + "..." : node.name;
       }
-      return Object.assign({}, node)
+      return Object.assign({}, node);
     }),
     edges: data.edges.map(function (edge, i) {
       edge.id = "edge" + i;
       edge.curveOffset = computeCurveOffset(edge);
       if (edge.properties instanceof Object) {
-        let { role } = edge.properties as { role?: string }
-        edge.label = role ? (role.length > 2 ? role.substring(0, 2) + "..." : "") : ""
+        const { role } = edge.properties as { role?: string };
+        edge.label = role ? (role.length > 2 ? role.substring(0, 2) + "..." : "") : "";
       }
       return Object.assign({}, edge);
     }),
@@ -371,7 +332,7 @@ const resetGraph = () => {
   graph.clear();
   graph.data(graphData);
   graph.render();
-}
+};
 
 onMounted(() => {
   nextTick(() => {
@@ -379,3 +340,40 @@ onMounted(() => {
   });
 });
 </script>
+<style lang="less" scoped>
+.my-relation-graph {
+  position: relative;
+
+  .query-form {
+    position: absolute;
+    right: 0;
+    top: -14px;
+
+    .reference {
+      background: transparent;
+      display: inline-block;
+      width: 40px;
+      height: 1px;
+    }
+  }
+
+  :deep(.g6-component-toolbar) {
+    right: 0;
+    top: 0;
+    left: auto;
+    display: flex;
+    flex-direction: column;
+
+    li {
+      width: 36px;
+      height: 36px;
+      padding: 6px;
+      color: #606266;
+
+      i {
+        font-size: 24px;
+      }
+    }
+  }
+}
+</style>

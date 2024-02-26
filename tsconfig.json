@@ -12,7 +12,7 @@
     }
   ],
   "compilerOptions": {
-    "types": [  "vite/client" ],
+    "types": ["vite/client"],
     "module": "esnext"
   }
 }
