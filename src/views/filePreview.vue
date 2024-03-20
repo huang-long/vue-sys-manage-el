@@ -9,34 +9,11 @@
     </el-row>
 
     <el-divider content-position="left">Preview Word</el-divider>
-
-    <el-button
-      type="primary"
-      @click="
-        dialogVisible = true;
-        fileType = 'word';
-      "
-    >
-      PreviewWord
-    </el-button>
-    <el-button
-      type="primary"
-      @click="
-        dialogVisible = true;
-        fileType = 'excel';
-      "
-    >
-      PreviewExcel
-    </el-button>
-    <el-button
-      type="primary"
-      @click="
-        dialogVisible = true;
-        fileType = 'pdf';
-      "
-    >
-      PreviewPdf
-    </el-button>
+    <el-space>
+      <el-button type="primary" @click="view('word')">PreviewWord</el-button>
+      <el-button type="primary" @click="view('excel')">PreviewExcel</el-button>
+      <el-button type="primary" @click="view('pdf')">PreviewPdf</el-button>
+    </el-space>
     <el-dialog v-model="dialogVisible" :title="'Preview ' + fileType" :fullscreen="true" draggable class="preview-dialog">
       <vue-office-docx v-if="fileType === 'word'" :key="'word'" :src="word" style="height: 100%" @rendered="renderedHandler" @error="errorHandler" />
       <vue-office-excel v-else-if="fileType === 'excel'" :key="'excel'" :src="excel" style="height: 100%" @rendered="renderedHandler" @error="errorHandler" />
@@ -44,6 +21,7 @@
     </el-dialog>
   </div>
 </template>
+
 <script lang="ts" setup name="filePreviewWord">
 //引入VueOfficeDocx组件
 import VueOfficeDocx from "@vue-office/docx";
@@ -70,7 +48,12 @@ const renderedHandler = () => {
 const errorHandler = () => {
   console.log("渲染失败");
 };
+const view = (type: string) => {
+  dialogVisible.value = true;
+  fileType.value = type;
+};
 </script>
+
 <style lang="less" scoped>
 :deep(.preview-dialog) {
   .el-dialog__body {

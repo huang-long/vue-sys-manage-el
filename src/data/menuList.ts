@@ -145,10 +145,17 @@ export const menuList1: Array<Menu> = [
       },
       {
         id: "Img_M00102",
-        path: "/bpmn",
-        name: "DemoBpmn",
-        componentPath: "bpmn.vue",
+        path: "/bpmnFlow",
+        name: "DemoBpmnFlow",
+        componentPath: "bpmnFlow.vue",
         title: "流程图",
+      },
+      {
+        id: "Img_M00104",
+        path: "/bpmnActiviti",
+        name: "DemoBpmnActiviti",
+        componentPath: "bpmnActiviti.vue",
+        title: "工作流",
       },
       {
         id: "Img_M00103",

@@ -1,6 +1,7 @@
 import { axios } from "@/utils/request";
 import type { Method } from "axios";
 import { ElMessage } from "element-plus";
+import saveAs from "file-saver";
 // import { getContentType } from '../utils/contentType'
 
 //实际项目写法参照 https://gitee.com/huanglgln/ruoyi-web-vue3-ts
@@ -85,9 +86,9 @@ export function downFile(url: string, parameter?: ReqParamObj) {
 
 /**
  * 下载文件 后台需要设置Content-Type
- * @param url 文件路径
- * @param fileName 文件名(名称.后缀，例如：表格.xlsx)
- * @param parameter
+ * @param {string} url 文件路径
+ * @param {string} fileName 文件名(名称.后缀，例如：表格.xlsx)
+ * @param {object} parameter
  * @returns {*}
  */
 export function downloadFile(url: string, fileName: string, parameter: ReqParamObj) {
@@ -103,23 +104,17 @@ export function downloadFile(url: string, fileName: string, parameter: ReqParamO
       return;
     }
 
-    // const contentType = getContentType(fileName)
-    // const nav = window.navigator;
-    // if (nav.msSaveBlob) {
-    //   // nav.msSaveBlob(new Blob([data], { type: contentType }), fileName)
-    //   nav.msSaveBlob(data, fileName);
-    // } else {
-    // const fileUrl = window.URL.createObjectURL(new Blob([data], { type: contentType }))
-    const fileUrl = window.URL.createObjectURL(data);
-    const link = document.createElement("a");
-    link.style.display = "none";
-    link.href = fileUrl;
-    link.setAttribute("download", fileName);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link); // 下载完成移除元素
-    window.URL.revokeObjectURL(fileUrl); // 释放掉blob对象
-    // }
+    // const fileUrl = window.URL.createObjectURL(data);
+    // const link = document.createElement("a");
+    // link.style.display = "none";
+    // link.href = fileUrl;
+    // link.setAttribute("download", fileName);
+    // document.body.appendChild(link);
+    // link.click();
+    // document.body.removeChild(link); // 下载完成移除元素
+    // window.URL.revokeObjectURL(fileUrl); // 释放掉blob对象
+
+    saveAs(data, fileName);
   });
 }
 

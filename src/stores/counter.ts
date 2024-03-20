@@ -4,13 +4,14 @@ import { defineStore } from "pinia";
 import { menuList1, menuList2 } from "../data/menuList";
 import router from "../router";
 
-interface Tag {
+export type Tag = {
   path: string;
   name: string;
   title: string;
-}
+};
 
 export declare interface Store {
+  activePath: string;
   tagsList: Tag[];
   meunIsCollapsed: boolean;
   loginUser: string | null;
@@ -39,6 +40,7 @@ export const userStore = defineStore({
     }
 
     return {
+      activePath: "",
       tagsList: tagsList,
       meunIsCollapsed: false,
       loginUser: loginUser,
@@ -84,11 +86,50 @@ export const userStore = defineStore({
       this.tagsList.push(tag);
       this.setTagsItem(this.tagsList);
     },
+    updateTagsItem(tag: Tag) {
+      const index = this.tagsList.findIndex((item) => tag.path === item.path);
+      if (index >= 0) {
+        this.tagsList[index] = tag;
+        this.setTagsItem(this.tagsList);
+      } else {
+        this.addTagsItem(tag);
+      }
+    },
     clearAllTags() {
       this.setTagsItem([]);
     },
     closeTagsOther(tagsList: Tag[]) {
       this.setTagsItem(tagsList);
+    },
+    // 关闭指定tab页签
+    closePage(path?: string) {
+      if (!path) {
+        path = this.activePath;
+      }
+      // 删除当前页面
+      const index = this.tagsList.findIndex((item) => item.path === path);
+      index >= 0 && this.delTagsItem(index);
+      // 设置下一页面
+      const nextTag = this.tagsList[index] ? this.tagsList[index] : this.tagsList[index - 1];
+      this.activePath = nextTag && nextTag.path ? nextTag.path : "/home";
+    },
+    // 关闭当前打开指定页面
+    closeOpenPage(toPath: string, path?: string) {
+      if (!path) {
+        path = this.activePath;
+      }
+      // 删除当前页面
+      const index = this.tagsList.findIndex((item) => item.path === path);
+      index >= 0 && this.delTagsItem(index);
+      // 设置下一页面
+      this.activePath = toPath;
+    },
+    isTagsRouter(path: string) {
+      if (path === "/login") {
+        return false;
+      } else {
+        return true;
+      }
     },
   },
 });

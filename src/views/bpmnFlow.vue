@@ -5,10 +5,6 @@
         相关文档：
         <a href="https://vueflow.dev/" target="_blank">Vue Flow官方文档</a>
       </el-col>
-      <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-        如果是activiti工作流可使用：
-        <a href="https://miyuesc.gitee.io/process-designer/" target="_blank">process-designer</a>
-      </el-col>
     </el-row>
 
     <el-divider content-position="left">Vue Flow</el-divider>

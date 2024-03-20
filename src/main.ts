@@ -11,6 +11,9 @@ import Print from "vue3-print-ts";
 import { i18n } from "./i18n";
 import formCreate from "@form-create/element-ui";
 import FcDesigner from "@form-create/designer";
+// svg图标
+import "virtual:svg-icons-register";
+import myIcons from "@/components/SvgIcon/myIcon";
 
 const app = createApp(App);
 app.use(createPinia());
@@ -20,6 +23,10 @@ app.use(VXETable);
 for (const [name, comp] of Object.entries(ElementPlusIconsVue)) {
   app.component(name, comp);
 }
+// 自定义icon 转化为 element plus Icons
+myIcons.forEach((item) => {
+  app.component(item.name, item.component);
+});
 // element plus
 app.use(i18n);
 app.use(ElementPlus);

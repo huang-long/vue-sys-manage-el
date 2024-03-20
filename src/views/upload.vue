@@ -67,6 +67,31 @@ const beforeAvatarUpload: UploadProps["beforeUpload"] = (rawFile) => {
   .el-upload:hover {
     border-color: var(--el-color-primary);
   }
+
+  :deep(.el-upload--text) {
+    background-color: #fff;
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    box-sizing: border-box;
+    width: 360px;
+    height: 180px;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+
+    .el-icon-upload {
+      font-size: 67px;
+      color: #97a8be;
+      margin: 40px 0 16px;
+      line-height: 50px;
+    }
+
+    em {
+      font-style: normal;
+    }
+  }
 }
 
 .el-icon.avatar-uploader-icon {
