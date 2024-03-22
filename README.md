@@ -12,7 +12,7 @@ tab选项卡
 表单相关：基本表单(富文本编辑器、表单构建、文件上传下载(文件上传、文件下载、文件预览、打印))  
 消息弹窗   
 自定义图标  
-图像图形(echarts图表、流程图、工作流、关系图)    
+图像图形(echarts图表、流程图、工作流、关系图、视屏处理)    
 国际化功能  
 环境变量  
 安全处理(权限测试、权限测试、404页面)  
@@ -61,7 +61,7 @@ npm run lint
 
 ### 支持作者
 
-![Image text](https://gitee.com/huanglgln/vue-sys-manage/raw/master/src/images/shoukuanma.png)
+![Image text](https://gitee.com/huanglgln/vue-sys-manage-el/raw/master/public/images/shoukuanma.png)
 
 ### 欢迎讨论
 

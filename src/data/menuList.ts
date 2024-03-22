@@ -164,6 +164,13 @@ export const menuList1: Array<Menu> = [
         componentPath: "antvG6.vue",
         title: "关系图",
       },
+      {
+        id: "Img_M00105",
+        path: "/video",
+        name: "DemoVideo",
+        componentPath: "video.vue",
+        title: "视频处理",
+      },
     ],
   },
   {
