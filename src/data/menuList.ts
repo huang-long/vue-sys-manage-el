@@ -215,6 +215,13 @@ export const menuList1: Array<Menu> = [
         componentPath: "error404.vue",
         title: "404页面",
       },
+      {
+        id: "Auth_M0046",
+        path: "/loadexe",
+        name: "DemoLoadexe",
+        componentPath: "loadexe.vue",
+        title: "唤醒 exe",
+      },
     ],
   },
   {

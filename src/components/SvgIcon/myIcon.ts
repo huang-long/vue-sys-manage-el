@@ -2,6 +2,8 @@ import { defineComponent, h } from "vue";
 import svgIcon from "./index.vue";
 const modules = import.meta.glob("./../../assets/icons/svg/*.svg");
 
+//下载地址 https://xicons.org/#/
+
 // 获取icon名称
 const filenNmes = [];
 for (const path in modules) {

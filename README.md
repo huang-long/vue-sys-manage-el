@@ -15,7 +15,7 @@ tab选项卡
 图像图形(echarts图表、流程图、工作流、关系图、视屏处理)    
 国际化功能  
 环境变量  
-安全处理(权限测试、权限测试、404页面)  
+安全处理(权限测试、权限测试、404 页面、唤醒 exe)
 
 ## 界面展示
 ![Image text](https://gitee.com/huanglgln/vue-sys-manage-el/raw/master/public/images/page1.png)  

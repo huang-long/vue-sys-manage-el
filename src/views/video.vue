@@ -10,13 +10,19 @@
 
     <el-divider content-position="left">vedio</el-divider>
     <el-row class="mgb20">
-      <el-button type="primary" @click="handleOpen">开启摄像头</el-button>
-      <el-button type="primary" @click="handleClose">关闭摄像头</el-button>
-      <el-button type="primary" @click="handleCapture">拍照</el-button>
-      <el-button type="primary" @click="handleStartRecording">开始录制</el-button>
-      <el-button type="primary" @click="handleStopRecording">停止录制</el-button>
-      <el-button type="primary" @click="handleDownload">下载</el-button>
-      <el-button type="primary" @click="handleDownloadFFmpeg">压缩下载</el-button>
+      <el-space>
+        <el-button type="primary" @click="handleOpen">开启摄像头</el-button>
+        <el-button type="primary" @click="handleClose">关闭摄像头</el-button>
+        <el-button type="primary" @click="handleCapture">拍照</el-button>
+        <el-button type="primary" @click="handleStartRecording">开始录制</el-button>
+        <el-button type="primary" @click="handleStopRecording">停止录制</el-button>
+        <el-button type="primary" @click="handleDownload">下载</el-button>
+        <el-button type="primary" @click="handleDownloadFFmpeg">压缩下载</el-button>
+        <el-select v-model="deviceId" placeholder="请选择设备" @change="deviceChange">
+          <el-option v-for="item in deviceList" :key="item.deviceId" :label="item.label"
+            :value="item.deviceId"></el-option>
+        </el-select>
+      </el-space>
     </el-row>
     <div style="height: 640px">
       <div class="left" style="width: 50%; float: left">
@@ -38,13 +44,16 @@ import { ElLoading, ElMessage } from "element-plus";
 const videoRef = ref<HTMLVideoElement>();
 const canvasRef = ref<HTMLCanvasElement>();
 const recordingVideoRef = ref<HTMLVideoElement>();
+const deviceList = ref<{ deviceId: string, label: string }[]>([]);
+const deviceId = ref("")
 let dataChunks: Blob[] = [];
 let recorder: MediaRecorder;
 let recordedBlob: Blob;
 
+
 //访问用户媒体设备的兼容方法
 const getUserMedia = (
-  constraints: { video: { width: number; height: number } | boolean; audio: boolean },
+  constraints: { video: MediaTrackConstraints | boolean; audio: boolean },
   success: (stream: MediaStream) => void,
   error: (error: { message: string }) => void
 ) => {
@@ -144,9 +153,13 @@ const handleStartRecording = () => {
   //开启摄像头
   // if (navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia) {
   //调用用户媒体设备, 访问摄像头
+  let videoConstraints: MediaTrackConstraints = { width: 480, height: 320 };
+  deviceId.value && (videoConstraints.deviceId = deviceId.value);
   getUserMedia(
-    { video: { width: 480, height: 320 }, audio: true },
+    { video: videoConstraints, audio: true },
     (stream) => {
+      updateDeviceList();
+
       if (videoRef.value) {
         // set the stream to left video
         videoRef.value.srcObject = stream;
@@ -244,6 +257,23 @@ const handleDownloadFFmpeg = () => {
   //   })
   // }
 };
+
+const updateDeviceList = () => {
+  deviceList.value = []
+  navigator.mediaDevices.enumerateDevices().then((devices) => {
+    devices.forEach((device) => {
+      if (device.kind === "videoinput") {
+        deviceList.value.push({
+          label: device.label,
+          deviceId: device.deviceId
+        })
+      }
+    });
+  });
+}
+
+const deviceChange = () => {
+}
 
 // 退出销毁视屏数据
 onBeforeMount(() => {
