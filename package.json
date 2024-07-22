@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
+    "clear": "vite clear",
     "build": "run-p type-check build-only",
     "preview": "vite preview --port 4173",
     "test:unit": "vitest --environment jsdom",
@@ -31,6 +32,7 @@
     "axios": "^1.2.3",
     "bpmn-js": "^17.0.2",
     "bpmn-js-properties-panel": "^5.13.0",
+    "buffer": "^6.0.3",
     "camunda-bpmn-js-behaviors": "^1.3.0",
     "camunda-bpmn-moddle": "^7.0.1",
     "custom-protocol-check": "^1.4.0",
@@ -43,6 +45,7 @@
     "screenfull": "^6.0.2",
     "splitpanes": "^3.1.5",
     "tiny-svg": "^4.0.0",
+    "ts-ebml": "^3.0.1",
     "vue": "~3.3.4",
     "vue-demi": "^0.14.6",
     "vue-i18n": "^9.2.2",

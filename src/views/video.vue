@@ -40,6 +40,17 @@ import { onBeforeMount, ref } from "vue";
 import saveAs from "file-saver";
 import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 import { ElLoading, ElMessage } from "element-plus";
+/**
+ * ebml 问题:
+ *  需要安装buffer（pnpm install buffer）
+ *  3.0.1版本修改node_modules\ts-ebml\lib\tools.js中const { tools: _tools } = require("ebml");为import { tools as _tools } from "ebml";
+ *  或者使用2.0.2版本
+ */
+import * as ebml from 'ts-ebml';
+import * as buffer from "buffer"; //引入buffer 
+if (typeof (window as any).Buffer === "undefined") { // 判断当前环境是否有Buffer对象
+  (window as any).Buffer = buffer.Buffer; // Buffer对象不存在则创建导入的buffer
+}
 
 const videoRef = ref<HTMLVideoElement>();
 const canvasRef = ref<HTMLCanvasElement>();
@@ -49,7 +60,42 @@ const deviceId = ref("")
 let dataChunks: Blob[] = [];
 let recorder: MediaRecorder;
 let recordedBlob: Blob;
+Buffer.alloc(0)
+/**
+ * 设置webm视频文件的总时长
+ * @param inputBlob 
+ * @param callback 
+ */
+const getSeekableBlob = (inputBlob: Blob, callback: (newBlob: Blob) => void) => {
+  // TODO
+  const reader = new ebml.Reader()
+  const decoder = new ebml.Decoder()
+  const tool = ebml.tools
 
+  const fileReader = new FileReader()
+  fileReader.onload = function (e) {
+    if (!fileReader.result || typeof fileReader.result == "string") {
+      return
+    }
+    const ebmlElms = decoder.decode(fileReader.result)
+    ebmlElms.forEach(function (element) {
+      reader.read(element)
+    })
+    reader.stop()
+    const refinedMetadataBuf = tool.makeMetadataSeekable(
+      reader.metadatas,
+      reader.duration,
+      reader.cues
+    )
+    const body = fileReader.result.slice(reader.metadataSize)
+    const newBlob = new Blob([refinedMetadataBuf, body], {
+      type: 'video/webm'
+    })
+
+    callback(newBlob)
+  }
+  fileReader.readAsArrayBuffer(inputBlob)
+}
 
 //访问用户媒体设备的兼容方法
 const getUserMedia = (
@@ -135,14 +181,18 @@ function startRecording() {
 //停止录制
 const handleStopRecording = () => {
   const stream = videoRef.value?.srcObject;
-  if (videoRef.value && stream instanceof MediaStream && recordingVideoRef.value) {
+  if (videoRef.value && stream instanceof MediaStream) {
     stream.getTracks().forEach((track) => track.stop());
     videoRef.value.srcObject = null;
     recorder.stop();
 
     // Play recorded video
     recordedBlob = new Blob(dataChunks, { type: "video/webm" });
-    recordingVideoRef.value.src = URL.createObjectURL(recordedBlob);
+    getSeekableBlob(recordedBlob, (newVideo) => {
+      if (recordingVideoRef.value) {
+        recordingVideoRef.value.src = URL.createObjectURL(newVideo);
+      }
+    })
     // Save download video， click the download button， you can download it
     // downloadButton.href = recordingVideoRef.value.src;
     // downloadButton.download = "RecordedVideo.webm";
